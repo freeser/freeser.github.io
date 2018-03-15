@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+  <meta name="keywords" content="cpu," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在很长的一段时间里，如果不实际跑分的话，我一直无法区分现阶段的i5笔记本，和3年前的i7笔记本，到底哪个性能好。  注：cpu天梯图">
+<meta name="keywords" content="cpu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPU常识">
+<meta property="og:url" content="http://liufeize.com/2017/10/13/CPU/index.html">
+<meta property="og:site_name" content="迷途">
+<meta property="og:description" content="在很长的一段时间里，如果不实际跑分的话，我一直无法区分现阶段的i5笔记本，和3年前的i7笔记本，到底哪个性能好。  注：cpu天梯图">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://liufeize.com/img/cpu1.jpg">
+<meta property="og:image" content="http://liufeize.com/img/cpu2.jpg">
+<meta property="og:updated_time" content="2018-03-15T01:47:48.159Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CPU常识">
+<meta name="twitter:description" content="在很长的一段时间里，如果不实际跑分的话，我一直无法区分现阶段的i5笔记本，和3年前的i7笔记本，到底哪个性能好。  注：cpu天梯图">
+<meta name="twitter:image" content="http://liufeize.com/img/cpu1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liufeize.com/2017/10/13/CPU/"/>
+
+
+
+
+
+  <title>CPU常识 | 迷途</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">迷途</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">雾隐寻归路，叠嶂道无影</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liufeize.com/2017/10/13/CPU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Freeser">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://owz81uqpo.bkt.clouddn.com/20150131_154827000_iOS.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CPU常识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T11:59:59+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/记忆存放/" itemprop="url" rel="index">
+                    <span itemprop="name">记忆存放</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在很长的一段时间里，如果不实际跑分的话，我一直无法区分现阶段的i5笔记本，和3年前的i7笔记本，到底哪个性能好。</p>
+<blockquote>
+<p>注：<a href="http://www.lotpc.com/tiantitu/pc_cpu.html" target="_blank" rel="noopener">cpu天梯图</a></p>
+</blockquote>
+<a id="more"></a>
+<p><img src="/img/cpu1.jpg" alt="cpu" title="cpu示例"><br><img src="/img/cpu2.jpg" alt="cpu" title="cpu示例"></p>
+<p>第一位“4”“5”“6”“7”“8”：代表英特尔酷睿第四、五、六、七、八代处理器；<br>第二位“5”“6”“7”“8”“9”：代表处理器等级，数字越大性能等级越高；<br>第三位“3”“5”“0”：这一位基本上就是对应核芯显卡的型号，其中“3”代表高性能处理器配HD 4600；“5”代表核芯显卡采用的是Iris 5000、5100或者Pro5200；而“0”则是HD 4600；<br>第四位“0”“2”“8”：“0”在标准电压中代表47W，而在低电压中代表15W；“2”则是代表37W，“8”在低电压处理器中代表28W；<br>第五位“MX”“HQ”“MQ”“U”：“MX”代表旗舰级，“HQ”支持vPro技术，“MQ”版本不支持，“U”代表超低电压以15W和28为主；</p>
+<p>基本只要记住这几个原则：尾缀带U的，性能一般不高，同等段位的CPU下（如同为i3），前两位数字越高越好。</p>
+<h2 id="1、-台式机处理器部分"><a href="#1、-台式机处理器部分" class="headerlink" title="1、 台式机处理器部分"></a>1、 台式机处理器部分</h2><ul>
+<li><p>后缀+X至高性能处理器;　</p>
+<p>  中文意思是至尊级，代表同一时代性能最强的CPU。如Core i7-5960X、Core i7-4960X。X代表在同一代中只有一款CPU黄袍加身，地位至高无上。</p>
+</li>
+</ul>
+<ul>
+<li><p>后缀+E代表嵌入式工程级处理器；</p>
+</li>
+<li><p>后缀+T代表超低电压处理器；</p>
+<p>  T后缀的CPU在功耗上更加低，为45W或更低，频率也比S后缀的更低。</p>
+</li>
+<li><p>后缀+S代表低电压处理器；</p>
+<p>  S和T后缀代表了节能版，其中S代表功耗降至65W，但是频率也相应地降低。</p>
+<p>  至于ES QS，ES就是Engineer Sample（工程样品）的缩写。ES版一般指ES不显的版本，通指所有测试版的工种样品。ES版通常我们说的是不能显示型号的CPU版本，该类CPU稳定性不确定，视不同的步进判断其稳定性和是否存在缺限，步进越接近正式版，其风险越小，具有价格特别便宜的特点，在较接近正式版的版本时，其稳定性一般也比较稳定，是廉价高价能的选择之一，也是准系统商家用的最多的版本之一。</p>
+<p>  QS是英文Qualification Sample（品质确认样品）的缩写。 QS版，也叫ES正显版，一般是最后一版ES。一般其步进和型号，都较正式版一模一样了，其稳定性不存在任何风险，在所有测试版中，属最好的版本，其货源也不像ES那样是免费供应，是INTEL向工厂收取少量费用卖出的，价格仍低于正式版不少，稳定性各方面和正式版一样，对不愿承担一点点风险，又追求性价比的来讲，是最好的选择。</p>
+</li>
+<li><p>后缀+K代表不锁倍频处理器；</p>
+<p>  自从Sandy Bridge时代Intel限制超频之后，K后缀成为了超频的标志。从i7-2600K开始到现在的i7-6700K，但凡带K后缀的CPU都解锁倍频，可自由调节。此外，K后缀还代表着同样数字型号的最高规格，比如i7-6700K的性能强于i7-6700。</p>
+</li>
+<li><p>后缀+P代表屏蔽集显处理器。</p>
+</li>
+<li><p>后缀+R代表采用BGA封装，并且采用Iris 核心显卡；</p>
+<p>  R代表采用了Iris高性能核显的R。Iris Pro代表了同类产品中核显最强的系列，比如i7-4770R、i7-5775R。不过这款产品的TDP为65W，为节能版。可见Intel也看到这类CPU追求GPU性能更加强大，同时降低功耗并且采用BGA封装，以满足一体式/HTPC等迷你电脑的需求。</p>
+<p>  大多数消费者只需要考虑无字母后缀的CPU就行，毕竟它们定位大众。而追求性能或者超频发烧友就选择K后缀的高性能CPU。至于其他后缀的，由于定位不符合大众化，所以我们就接触得少。</p>
+</li>
+</ul>
+<h2 id="2、-笔记本处理器部分"><a href="#2、-笔记本处理器部分" class="headerlink" title="2、 笔记本处理器部分"></a>2、 笔记本处理器部分</h2><ul>
+<li><p>后缀+ M代表标准电压处理器；</p>
+<p>  M代表了双核标准功耗版本的笔记本CPU。在四代或者以前的酷睿时代，性价比高，性能适中，让35W/37W的M后缀的CPU一直是主流笔记本的绝对主流，如大家耳熟能详的i5-4200M，i3-2310M等。可惜到了五代酷睿之后，M后缀的CPU成为了绝唱，我们再也找不到新一代标准功耗的双核CPU，i7-4610M成为了最后一款以单线程高频率为代表的高性能i7双核笔记本CPU。</p>
+</li>
+<li><p>后缀+ U代表低电压处理器；Ultra Low Voltage，超低电压版CPU，发热量和功耗比L系列的还要低。多见于超极本 TDP在15W左右</p>
+<p>  随着超极本/超薄本的流行，加上笔记本端CPU竞争一家独大，Intel就大力推广节能版CPU，这类CPU就以U为结尾，15W TDP，如i7-4500U，i7-5500U等。前面提到的是00U后缀的，而xx50U后缀的采用更高性能的HD Graphics核心显卡，如i7-4550U，但是TDP依然是15W，所以CPU性能比起i7-4500U更差。</p>
+</li>
+<li><p>后缀+ H高电压且不可拆卸处理器；Haswell处理器在移动平台上的一种封装形式，BGA1364（另外还有rPGA947）</p>
+<p>  H代表了BGA封装（旱死在主板）的笔记本双核CPU，产品很少，定位在大尺寸平板，一体机，一体化主板等领域，比如i5-4200H以及i5-5350H。虽然是双核，但是TDP达到了四核的水平，为47W，不过作为补偿频率比M后缀同数字的型号高。</p>
+<p>  到了五代的i5-5350H，升级到Iris高性能核心显卡，4MB缓存以及3.1GHz-3.5GHz的高频率，这不就是四代i7双核标压版本的继任者？可见Intel将这类划分到i5的H后缀中去了。</p>
+</li>
+<li><p>后缀+ X代表高性能处理器；Extreme，表示性能最高的</p>
+</li>
+<li><p>后缀+ L代表Low voltage，指的是低电压版CPU，发热量跟标准版的相比大约只有一半。</p>
+</li>
+<li><p>后缀+ Q代表4核心至高性能处理器；Quad，强调这颗CPU是四核心的，而且标明Q的处理器只有笔记本系列的CPU，因为笔记本的处理器一般是双核的。</p>
+</li>
+<li><p>后缀+ Y代表超低电压处理器。超低功耗版CPU 多见于平板 TDP甚至低于10W</p>
+<p>  Y后缀的笔记本双核CPU算是昙花一现，在Core M推出之前，Intel就推出了Y后缀的CPU如Core i7-4610Y，TDP仅有11.5W，比起U版本更加低。定位在x86平板这类对散热要求很高的平台。不过在Intel推出专门为平板领域服务的Core M家族后，Y后缀的CPU在目前不再更新。</p>
+</li>
+<li><p>QM是四代酷睿之前四核笔记本CPU的标准版本，比如i7-3630QM。四核心八线程，45W的TDP（部分低功耗四核版本为35W，如i7-3632QM），是游戏本标配的CPU。</p>
+</li>
+<li><p>XM代表笔记本的至尊版CPU，带XM后缀。X，顾名思义，Extreme，是四代酷睿之前的至尊版CPU，比如i7-2960XM，TDP达到了55W，性能也是笔记本领域最强，并且开放自由超频，所以它成为了高帅富的象征。</p>
+</li>
+<li><p>MQ后缀的CPU只存在在四代，四核心的四代酷睿一改以往的QM后缀，将俩字母调换，变成了MQ，如i7-4700MQ。TDP比三代或之前的多了2W，因为四代把电压调节器内置到CPU，需要额外功耗；MQ系列的CPU采用PGA封装，可更换升级。所以，我们经常看到游戏本升级CPU就是靠MQ系列CPU。同时MQ也有低功耗版本，TDP为37W，比如i7-4702MQ。</p>
+</li>
+<li><p>MX后缀，如：地球人 P157SM-A游戏本装的就是i7-4930MX至尊版CPU，支持超频。MX后缀的笔记本CPU特指四代酷睿至尊版，特点和XM一样。为可更换CPU封装，TDP高达57W，频率也高达3GHz以上，性能瞬间爆炸</p>
+</li>
+<li><p>HQ后缀</p>
+<p>  HQ和MQ的区别在于它们在封装上。HQ采用BGA封装，直接焊在主板不能更换，而MQ和我们平时DIY装机那样，可以自由更换。</p>
+<p>  值得注意的是，五代四核的L3缓存容量全是6MB，可惜的是，Intel开始强行推广HQ后缀的CPU了，MQ系列的CPU在五代开始消失匿迹。主流四核笔记本CPU已经被HQ完全占据，如Core i7-5700HQ，是i7-4700HQ/MQ家族的继任者。而同样的i7四核下，十位数为5的代表采用了Iris高性能核显，就像Core i7-5750HQ，并且取消了低功耗（37W）四核版本。同时Intel推出多达三款的Iris核心显卡的HQ四核CPU，主流的仅有Core i7-5700HQ一款，Intel趋向很明显，但是这种做法对于游戏本玩家来说，并无任何大作用……。</p>
+<p>  六代四核更注重CPU性能提升，包括首次出现i5四核。到了六代，一个重要趋势就是HQ后缀带到了i5，这就说明酷睿笔记本CPU第一次见到i5四核，这与桌面CPU同步了。同时TDP降低到和三代酷睿一样的45W，因为Intel又把电压调节器放回主板了。i7-6700HQ无疑是新一代主流，不过定位肯定和i7-5700HQ重合了。20数字后缀的三级缓存为8MB，比如i7-6820HQ。不过这一代四核却没有自带Iris核心显卡，对于游戏本玩家来说，GPU肯定是无用的，CPU性能提升才是王道。</p>
+</li>
+<li><p>HK后缀</p>
+<p>  与HQ相比，HK后缀取消了原本四核CPU一直支持博锐技术，稳定映像平台计划以及可信执行技术，但是价格却一样，让人觉得很奇怪Intel为何要阉割掉本来白送的技术。所以，我们相信这类CPU不会大规模出现。此外，HK解锁了频率限制，玩家可以自由超频。</p>
+</li>
+</ul>
+<blockquote>
+<p>若同时具有两个字母组合的，含义分别是字母的组合。</p>
+</blockquote>
+<h2 id="3、-AMD后缀解读"><a href="#3、-AMD后缀解读" class="headerlink" title="3、 AMD后缀解读"></a>3、 AMD后缀解读</h2><ul>
+<li><p>K后缀</p>
+<p>  K在AMD CPU中同样代表超频，和Intel，一样，K代表了不解锁倍频版本，AMD 速龙 X4 860K，AMD A10-7870K。</p>
+</li>
+<li><p>E后缀</p>
+<p>  E代表95W的低功耗，还有不带E的FX8300。<br>E后缀特指FX系列CPU的节能版，如FX 8370E，频率降低到3.3/4.3GHz，但是功耗降低到95W（FX8370的规格为4.0/4.3GHz，125W）。</p>
+</li>
+<li><p>B后缀</p>
+<p>  B后缀特指APU的低功耗商务版本，比如A10 PRO-7850B，下限能耗少10W，GPU频率降低。</p>
+</li>
+<li><p>M后缀</p>
+<p>  M系列特指APU的移动版，至于FX系列移动版就别想了，怎么也打不过Intel。目前笔记本CPU市场基本都是Intel天下,APU产品极少。</p>
+</li>
+</ul>
+<p>相对于Intel众多CPU后缀，AMD无论是产品线还是后缀就显得要少的多。以上就是小编为大家带来的Intel和AMD CPU后缀含义大全，有没有一种很复杂的感觉呢？其实看CPU性能，只看这些后缀的话，确实很复杂，不过如果能结合 「<a href="http://www.lotpc.com/tiantitu/pc_cpu.html" target="_blank" rel="noopener">CPU天梯图</a>」 去看，就会显得很简单。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cpu/" rel="tag"># cpu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/30/mouseout/" rel="next" title="关于mouseout离开容器的事件">
+                <i class="fa fa-chevron-left"></i> 关于mouseout离开容器的事件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/02/socket-io/" rel="prev" title="socket.io实践">
+                socket.io实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTExMS83NjYw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://owz81uqpo.bkt.clouddn.com/20150131_154827000_iOS.jpg"
+                alt="Freeser" />
+            
+              <p class="site-author-name" itemprop="name">Freeser</p>
+              <p class="site-description motion-element" itemprop="description">个人博客，写一些工作常用的小工具，备份一些代码...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/freeser" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:freeser@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/108392057455602995990" target="_blank" title="Google">
+                    
+                      <i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/liu_freeser" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/freeser" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/freeser" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-yelp"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-台式机处理器部分"><span class="nav-number">1.</span> <span class="nav-text">1、 台式机处理器部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、-笔记本处理器部分"><span class="nav-number">2.</span> <span class="nav-text">2、 笔记本处理器部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、-AMD后缀解读"><span class="nav-number">3.</span> <span class="nav-text">3、 AMD后缀解读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Freeser</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

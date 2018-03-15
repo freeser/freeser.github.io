@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+  <meta name="keywords" content="js,libs,nodejs,api," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Socket.IO 实现了基于事件的实时双向通信。可以工作在任意平台、浏览器或设备，专注于可靠性和速度。配方旨在记录作者的实践过程，以及备注一些常用的api使用方法。示例">
+<meta name="keywords" content="js,libs,nodejs,api">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket.io实践">
+<meta property="og:url" content="http://liufeize.com/2017/11/02/socket-io/index.html">
+<meta property="og:site_name" content="迷途">
+<meta property="og:description" content="Socket.IO 实现了基于事件的实时双向通信。可以工作在任意平台、浏览器或设备，专注于可靠性和速度。配方旨在记录作者的实践过程，以及备注一些常用的api使用方法。示例">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T01:47:48.167Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="socket.io实践">
+<meta name="twitter:description" content="Socket.IO 实现了基于事件的实时双向通信。可以工作在任意平台、浏览器或设备，专注于可靠性和速度。配方旨在记录作者的实践过程，以及备注一些常用的api使用方法。示例">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liufeize.com/2017/11/02/socket-io/"/>
+
+
+
+
+
+  <title>socket.io实践 | 迷途</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">迷途</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">雾隐寻归路，叠嶂道无影</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liufeize.com/2017/11/02/socket-io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Freeser">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://owz81uqpo.bkt.clouddn.com/20150131_154827000_iOS.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">socket.io实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T15:39:28+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文档留存/" itemprop="url" rel="index">
+                    <span itemprop="name">文档留存</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文档留存/实例讲介/" itemprop="url" rel="index">
+                    <span itemprop="name">实例讲介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/socketio/socket.io" target="_blank" rel="noopener">Socket.IO</a> 实现了基于事件的实时双向通信。<br>可以工作在任意平台、浏览器或设备，专注于可靠性和速度。<br>配方旨在记录作者的实践过程，以及备注一些常用的api使用方法。<a href="https://github.com/freeser/example/tree/master/socket.io.chat" target="_blank" rel="noopener">示例</a><br><a id="more"></a> </p>
+<h2 id="后台服务"><a href="#后台服务" class="headerlink" title="后台服务"></a>后台服务</h2><p>我们使用了基于 Node.JS 的 web 框架 <code>express</code> 。 请确保安装了 <code>[Node.JS](https://nodejs.org/)</code>。<br>后台依赖如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"express"</span>: <span class="string">"4.13.4"</span>,</span><br><span class="line">    <span class="string">"socket.io"</span>: <span class="string">"^2.0.4"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要保存 <code>dependencies</code> 信息， 可以用 <code>npm install --save express</code>;<br>然后新建一个 <code>index.js</code> 文件来创建应用.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).createServer(app);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> port = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line">server.listen(port, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Server listening at port %d'</span>, port);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Routing</span></span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">'client'</span>)));</span><br></pre></td></tr></table></figure>
+<p>接下来就是主角登场了。。。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server);</span><br></pre></td></tr></table></figure>
+<p>我们通过传入 <code>http</code> （HTTP 服务器） 对象初始化了 <code>socket.io</code> 的一个实例。 然后监听 <code>connection</code> 事件来接收 <code>sockets</code>， 并将连接信息打印到控制台。当然有连接当然就有挂断了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//监听客户端连接,回调函数会传递本次连接的socket</span></span><br><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'a connected'</span>);</span><br><span class="line">  socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'disconnected'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>connection</code> 事件很重要，以后所有的事件回送都建立在连接成功的基础上。<br>Socket.IO 的核心理念就是允许发送、接收任意事件和任意数据。任意能被编码为 <code>JSON</code> 的对象都可以用于传输。二进制数据 也是支持的。</p>
+<p>接下来的目标就是让服务器将消息发送给其他用户。<br>要将事件发送给每个用户，Socket.IO 提供了 io.emit 方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">io.emit(<span class="string">'some event'</span>, &#123; <span class="attr">for</span>: <span class="string">'everyone'</span> &#125;); </span><br><span class="line"><span class="comment">//可以是一个字符串、json对象，也可以是多个参数对象</span></span><br></pre></td></tr></table></figure>
+<p>要将消息发给除特定 socket 外的其他用户，可以用 broadcast 标志：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  socket.broadcast.emit(<span class="string">'hi'</span>); <span class="comment">//参数对象同上个例子</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="前端页面"><a href="#前端页面" class="headerlink" title="前端页面"></a>前端页面</h2><p>前端页面要做的就很简单了；<br>在 index.html 的 <code>&lt;/body&gt;</code> 标签中添加如下内容：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> socket = io(); </span></span><br><span class="line"><span class="javascript">  <span class="comment">// 等价于 io('http://localhost')</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>ES6、AMD加载方法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io-client'</span>);</span><br><span class="line"><span class="comment">// or with import syntax</span></span><br><span class="line"><span class="keyword">import</span> io <span class="keyword">from</span> <span class="string">'socket.io-client'</span>;</span><br></pre></td></tr></table></figure>
+<p>这样就加载了 <code>socket.io-client</code>。 <code>socket.io-client</code> 暴露了一个 <code>io</code> 全局变量，然后连接服务器。<br>请注意我们在调用 <code>io()</code> 时没有指定任何 URL，因为它默认将尝试连接到提供当前页面的主机。</p>
+<p>现在前后端已经联通，node控制台将会出现如下信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a connected</span><br><span class="line">disconnected</span><br><span class="line">a connected</span><br><span class="line">disconnected</span><br><span class="line">a connected</span><br><span class="line">disconnected</span><br></pre></td></tr></table></figure></p>
+<p>多次刷新会出现上面的信息。</p>
+<p>现在前端页面与后台的交互方法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> socket = io();</span><br><span class="line">    $(<span class="string">'form'</span>).submit(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 向后台传输数据，可以是一个字符串、json对象，也可以是多个参数对象</span></span><br><span class="line">        socket.emit(<span class="string">'chat message'</span>, $(<span class="string">'#m'</span>).val());</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 监听后台传输过来的数据</span></span><br><span class="line">    socket.on(<span class="string">'chat message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">      $(<span class="string">'#messages'</span>).append($(<span class="string">'&lt;li&gt;'</span>).text(msg));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>就这样就实现了与后台的数据聊天交互。</p>
+<h2 id="进阶实例"><a href="#进阶实例" class="headerlink" title="进阶实例"></a>进阶实例</h2><p>目标我想实现一对一的交流、或者只跟后台的交互，不要跟其它用户交流。<br>思路，只有一个人的群聊？后台知道前台的唯一id？<br>首先第个页面要有个唯一id，那先用地址栏传参数吧。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getParam</span>(<span class="params">name, href</span>) </span>&#123;</span><br><span class="line">    name = name.replace(<span class="regexp">/[\[]/</span>, <span class="string">"\\\["</span>).replace(<span class="regexp">/[\]]/</span>, <span class="string">"\\\]"</span>);</span><br><span class="line">    <span class="keyword">var</span> regexS = <span class="string">"[\\?&amp;]"</span> + name + <span class="string">"=([^&amp;#]*)"</span>;</span><br><span class="line">    <span class="keyword">var</span> regex = <span class="keyword">new</span> <span class="built_in">RegExp</span>(regexS);</span><br><span class="line">    <span class="keyword">var</span> results = regex.exec(href || <span class="built_in">window</span>.location.href);</span><br><span class="line">    <span class="keyword">if</span> (results == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> results[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>connect</code> 事件监听是否连接成功</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(socket.id); <span class="comment">// undefined</span></span><br><span class="line">socket.on(<span class="string">'connect'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(socket.id); <span class="comment">// 'G5p5...'此时连接已经成功</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>发现有 <code>socket.id</code> 了就用不着地址栏传参数了吧<br>不过传参数也是一种方法，前台监听这个id，后台emit这个id</p>
+<h3 id="与后台交流"><a href="#与后台交流" class="headerlink" title="与后台交流"></a>与后台交流</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后台server.js</span></span><br><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> socketId = socket.id;</span><br><span class="line">  socket.on(<span class="string">'order'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> msg = <span class="string">'回执：'</span> + <span class="built_in">JSON</span>.stringify(message);</span><br><span class="line">    <span class="comment">// io.sockets.sockets[socketId].emit('clientMsg', msg); 给指定的socketId发送消息，适用于在其它connect里面</span></span><br><span class="line">    socket.emit(<span class="string">'clientMsg'</span>, msg);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前台index.html</span></span><br><span class="line"><span class="keyword">var</span> socket = io();</span><br><span class="line">socket.on(<span class="string">'connect'</span>, () =&gt; &#123;</span><br><span class="line">    log(<span class="string">'连接成功：'</span> + socket.id);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//接收消息</span></span><br><span class="line">socket.on(<span class="string">'clientMsg'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    log(data);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'clientMsg'</span>, data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//断开连接（系统方法disconnct不可更改为其它）</span></span><br><span class="line">socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    log(<span class="string">'连接断开!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="群聊"><a href="#群聊" class="headerlink" title="群聊"></a>群聊</h3><p>1、方法一，借助socket,设置groupid</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后台server.js</span></span><br><span class="line">socket.on(<span class="string">'order'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">message, groupId</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> msg = socket.userName + <span class="string">': '</span> + <span class="string">'回执：'</span> + <span class="built_in">JSON</span>.stringify(message);</span><br><span class="line">    <span class="comment">//推送给群组其它人，不包括自己</span></span><br><span class="line">    socket.to(socket.groupId).broadcast.emit(<span class="string">'group.emit'</span>, msg);</span><br><span class="line">    <span class="comment">//推送给群组所有人，包括自己</span></span><br><span class="line">    <span class="comment">//io.sockets.in(socket.groupId).emit('group.emit', msg); //方法1.2</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 加入群组</span></span><br><span class="line">socket.on(<span class="string">'group'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">groupId</span>) </span>&#123;</span><br><span class="line">    socket.groupId = groupId;</span><br><span class="line">    socket.userName = userName;</span><br><span class="line">    socket.join(groupId); <span class="comment">//加入群组</span></span><br><span class="line">    <span class="comment">//推送给群组其它人，不包括自己</span></span><br><span class="line">    socket.to(socket.groupId).broadcast.emit(<span class="string">'group.emit'</span>, userName + <span class="string">'加入群组'</span>+ groupId +<span class="string">'成功'</span>);</span><br><span class="line">    <span class="comment">//推送给群组所有人，包括自己</span></span><br><span class="line">    <span class="comment">// io.sockets.in(groupId).emit('group.emit', userName + '加入群组'+ groupId +'成功');</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前台index.html</span></span><br><span class="line"><span class="keyword">var</span> socket = io();</span><br><span class="line"><span class="keyword">var</span> groupId = getParam(<span class="string">'group'</span>);</span><br><span class="line"><span class="keyword">var</span> userName = getParam(<span class="string">'user'</span>);</span><br><span class="line">socket.on(<span class="string">'connect'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 加入群组</span></span><br><span class="line">    groupId &amp;&amp; socket.emit(<span class="string">'group'</span>, groupId, userName);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//群组消息</span></span><br><span class="line">socket.on(<span class="string">'group.emit'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'group.emit'</span>, data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>2、方法二，借助io.of(‘/room1’)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后台server.js</span></span><br><span class="line">io.of(<span class="string">'/room1'</span>).on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">  socket.on(<span class="string">'order'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> msg = socket.userName + <span class="string">': '</span> + <span class="string">'回执：'</span> + <span class="built_in">JSON</span>.stringify(message);</span><br><span class="line">    socket.broadcast.emit(<span class="string">'group.emit'</span>, msg);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 加入群组</span></span><br><span class="line">  socket.on(<span class="string">'join'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">userName</span>) </span>&#123;</span><br><span class="line">    socket.userName = userName;</span><br><span class="line">    socket.broadcast.emit(<span class="string">'group.emit'</span>, userName + <span class="string">'加入群组room1成功'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前台group.html</span></span><br><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'http://localhost:3000/room1'</span>);</span><br><span class="line"><span class="keyword">var</span> userName = getParam(<span class="string">'user'</span>);</span><br><span class="line">socket.on(<span class="string">'connect'</span>, () =&gt; &#123;</span><br><span class="line">    log(<span class="string">'连接成功：'</span> + socket.id);</span><br><span class="line">    <span class="comment">// 加入群组</span></span><br><span class="line">    userName &amp;&amp; socket.emit(<span class="string">'join'</span>, userName);</span><br><span class="line">&#125;);</span><br><span class="line">socket.on(<span class="string">'group.emit'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>但是这个方法有个限制，只能后台控制群组名称，不能前台自定义设置（个人粗浅理解，如有错误还请指正）</p>
+<h2 id="Socket-IO-API"><a href="#Socket-IO-API" class="headerlink" title="Socket.IO API"></a>Socket.IO API</h2><h3 id="服务端API"><a href="#服务端API" class="headerlink" title="服务端API"></a>服务端API</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).createServer(app);</span><br><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听客户端连接,回调函数会传递本次连接的socket</span></span><br><span class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//socketid = socket.id</span></span><br><span class="line">    <span class="comment">//其实这个id可以做为roomid，默认一个connection生成的socket可以做为</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给所有socket的客户端广播消息包括自己</span></span><br><span class="line">io.sockets.emit(<span class="string">'String'</span>,data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给指定的客户端发送消息</span></span><br><span class="line">io.sockets.sockets[socketid].emit(<span class="string">'String'</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听客户端发送过来的信息</span></span><br><span class="line">socket.on(<span class="string">'String'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给该socket的客户端发送消息包括自己</span></span><br><span class="line">socket.emit(<span class="string">'String'</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给该socket的客户端发消息不包括自己</span></span><br><span class="line">socket.broadcast.emit(<span class="string">'String'</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 推送给群组其它人，不包括自己</span></span><br><span class="line">socket.to(socket.groupId).broadcast.emit(<span class="string">'String'</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 推送给群组所有人，包括自己</span></span><br><span class="line">io.sockets.in(socket.groupId).emit(<span class="string">'String'</span>, data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 离开群组</span></span><br><span class="line">socket.leave(room, fn);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 离开所加入的所有群组</span></span><br><span class="line">socket.leaveAll();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>另外，Socket.IO提供了4个配置的API：io.configure, io.set, io.enable, io.disable。<br>其中io.set对单项进行设置，io.enable和io.disable用于单项设置布尔型的配置。<br>io.configure 可以让你对不同的生产环境（如devlopment，test等等）配置不同的参数。</p>
+<h4 id="new-Server"><a href="#new-Server" class="headerlink" title="new Server"></a>new Server</h4><p>1、new Server(httpServer[, options])</p>
+<ul>
+<li>httpServer (http.Server) 需要绑定的 <code>server</code>.</li>
+<li>options (Object)<ul>
+<li>path (String): 要捕获的路径的名称 (<code>/socket.io</code>)</li>
+<li>serveClient (Boolean): 是否为客户端文件提供服务 (<code>true</code>)</li>
+<li>adapter (Adapter): 要使用的适配器。默认为带有套接字的适配器，是基于内存的</li>
+<li>origins (String):  允许的域名，默认：<code>*</code></li>
+<li>parser (Parser):  要使用的解析器，要与前端设置的一样.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">const</span> Server = <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">const</span> io = <span class="keyword">new</span> Server();</span><br></pre></td></tr></table></figure>
+<p>2、new Server(port[, options])<br>3、new Server(options)</p>
+<h4 id="server-sockets"><a href="#server-sockets" class="headerlink" title="server.sockets"></a>server.sockets</h4><p>默认命名空间为： <code>/</code></p>
+<h4 id="server-serveClient"><a href="#server-serveClient" class="headerlink" title="server.serveClient"></a>server.serveClient</h4><p>server.serveClient([value])</p>
+<ul>
+<li><code>value</code> <em>(Boolean)</em></li>
+<li><strong>Returns</strong> <code>Server|Boolean</code></li>
+</ul>
+<p>如果值为<code>true</code>，连接的服务器将为客户端文件提供服务，此方法在调用<code>attach</code>后无效.<br>如果未提供参数, 此方法将返回当前值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置`server`的 `serveClient` 选项</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(http, &#123; <span class="attr">serveClient</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或不传递任何`server`, 然后您可以调用该方法</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line">io.serveClient(<span class="literal">false</span>);</span><br><span class="line">io.attach(http);</span><br></pre></td></tr></table></figure>
+<h4 id="server-path"><a href="#server-path" class="headerlink" title="server.path"></a>server.path</h4><p>server.path([value])</p>
+<ul>
+<li><code>value</code> <em>(Boolean)</em></li>
+<li><strong>Returns</strong> <code>Server|Boolean</code></li>
+</ul>
+<p>个人理解主要是命名空间与前台配合，相当于分组</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line">io.path(<span class="string">'/myownpath'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前端html</span></span><br><span class="line"><span class="keyword">const</span> socket = io(&#123;</span><br><span class="line">  path: <span class="string">'/myownpath'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="server-adapter-value"><a href="#server-adapter-value" class="headerlink" title="server.adapter([value])"></a>server.adapter([value])</h4><h4 id="server-origins"><a href="#server-origins" class="headerlink" title="server.origins"></a>server.origins</h4><p>1、[value], string<br>设置允许的域名，默认所有的都允许(<code>*</code>)。<br>2、fn<br>提供一个回调方法包括两个参数，<code>origin:String</code> 和 <code>callback(error, success)</code>，<br>返回一个布尔值，表示是否允许某个源访问</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">io.origins(<span class="function">(<span class="params">origin, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (origin !== <span class="string">'https://foo.example.com'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> callback(<span class="string">'origin not allowed'</span>, <span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  callback(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="server-attach"><a href="#server-attach" class="headerlink" title="server.attach"></a>server.attach</h4><p>1、server.attach(httpServer[, options])<br>2、server.attach(port[, options])</p>
+<h4 id="server-listen"><a href="#server-listen" class="headerlink" title="server.listen"></a>server.listen</h4><p>1、server.listen(httpServer[, options])<br>2、server.listen(port[, options])</p>
+<h4 id="server-of-nsp"><a href="#server-of-nsp" class="headerlink" title="server.of(nsp)"></a>server.of(nsp)</h4><p>初始化并查找一个路径的命名空间；<br>如果命名空间已经初始化, 它将立即返回。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> adminNamespace = io.of(<span class="string">'/admin'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="server-close"><a href="#server-close" class="headerlink" title="server.close"></a>server.close</h4><p>参数：<code>[callback]</code><br>关闭一个<code>socket.io</code>的服务，当服务关闭的时候回调方法将会被调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Server = <span class="built_in">require</span>(<span class="string">'socket.io'</span>);</span><br><span class="line"><span class="keyword">const</span> PORT   = <span class="number">3030</span>;</span><br><span class="line"><span class="keyword">const</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).Server();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> io = Server(PORT);</span><br><span class="line"></span><br><span class="line">io.close(); <span class="comment">// Close current server</span></span><br><span class="line"></span><br><span class="line">server.listen(PORT); <span class="comment">// PORT is free to use</span></span><br><span class="line"></span><br><span class="line">io = Server(server);</span><br></pre></td></tr></table></figure>
+<h4 id="namespace-to-room"><a href="#namespace-to-room" class="headerlink" title="namespace.to(room)"></a>namespace.to(room)</h4><p>与 <code>namespace.in(room)</code> 等价<br>只推送给客户端加入的房间<br>要发给多个房间，你可以多次调用 <code>to</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line"><span class="keyword">const</span> adminNamespace = io.of(<span class="string">'/admin'</span>);</span><br><span class="line"></span><br><span class="line">adminNamespace.to(<span class="string">'level1'</span>).emit(<span class="string">'an event'</span>, &#123; <span class="attr">some</span>: <span class="string">'data'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="namespace-emit"><a href="#namespace-emit" class="headerlink" title="namespace.emit"></a>namespace.emit</h4><p>namespace.emit(eventName[, …args])</p>
+<p>推送事件到已连接的客户端。两个示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line">io.emit(<span class="string">'an event sent to all connected clients'</span>); <span class="comment">// main namespace</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> chat = io.of(<span class="string">'/chat'</span>);</span><br><span class="line">chat.emit(<span class="string">'an event sent to all connected clients in chat namespace'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="namespace-clients-callback"><a href="#namespace-clients-callback" class="headerlink" title="namespace.clients(callback)"></a>namespace.clients(callback)</h4><p>得到已连接到当前命名空间的客户端 IDs</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line">io.of(<span class="string">'/chat'</span>).clients(<span class="function">(<span class="params">error, clients</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="built_in">console</span>.log(clients); <span class="comment">// =&gt; [PZDoMHjiu8PYfRiKAAAF, Anw2LatarvGVVXEIAAAD]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>一个等到当前命名空间下某个房间的所有客户端</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">io.of(<span class="string">'/chat'</span>).in(<span class="string">'general'</span>).clients(<span class="function">(<span class="params">error, clients</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="built_in">console</span>.log(clients); <span class="comment">// =&gt; [Anw2LatarvGVVXEIAAAD]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>与广播一样, 默认的是默认命名空间中的所有客户端</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">io.clients(<span class="function">(<span class="params">error, clients</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="built_in">console</span>.log(clients); <span class="comment">// =&gt; [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="namespace-use-fn"><a href="#namespace-use-fn" class="headerlink" title="namespace.use(fn)"></a>namespace.use(fn)</h4><p>注册一个中间件，它是为每个传入的 <code>socket</code> 执行的函数, 并接收作为参数的<code>socket</code>和一个函数, 可以选择延迟执行到下一个注册的中间件。<br>传递给中间件回调的 <code>error</code> 作为特殊的错误数据包发送到客户端。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">io.use(<span class="function">(<span class="params">socket, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (socket.request.headers.cookie) <span class="keyword">return</span> next();</span><br><span class="line">  next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Authentication error'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="socket-id"><a href="#socket-id" class="headerlink" title="socket.id"></a>socket.id</h4><p>会话的唯一标识符，来自底层<code>Client</code>。</p>
+<h4 id="socket-rooms"><a href="#socket-rooms" class="headerlink" title="socket.rooms"></a>socket.rooms</h4><p>一个字符串哈希, 用于标识此客户端所位于的文件室, 按房间名称进行索引。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</span><br><span class="line">  socket.join(<span class="string">'room 237'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> rooms = Objects.keys(socket.rooms);</span><br><span class="line">    <span class="built_in">console</span>.log(rooms); <span class="comment">// [ &lt;socket.id&gt;, 'room 237' ]</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="socket-client"><a href="#socket-client" class="headerlink" title="socket.client"></a>socket.client</h4><h4 id="socket-use"><a href="#socket-use" class="headerlink" title="socket.use"></a>socket.use</h4><h4 id="socket-send"><a href="#socket-send" class="headerlink" title="socket.send"></a>socket.send</h4><h4 id="socket-emit"><a href="#socket-emit" class="headerlink" title="socket.emit"></a>socket.emit</h4><h4 id="socket-on-eventName-listener"><a href="#socket-on-eventName-listener" class="headerlink" title="socket.on(eventName, listener)"></a>socket.on(eventName, listener)</h4><h4 id="socket-once-eventName-listener"><a href="#socket-once-eventName-listener" class="headerlink" title="socket.once(eventName, listener)"></a>socket.once(eventName, listener)</h4><h4 id="socket-removeListener-eventName-listener"><a href="#socket-removeListener-eventName-listener" class="headerlink" title="socket.removeListener(eventName, listener)"></a>socket.removeListener(eventName, listener)</h4><h4 id="socket-join-room-callback"><a href="#socket-join-room-callback" class="headerlink" title="socket.join(room[, callback])"></a>socket.join(room[, callback])</h4><h4 id="socket-join-rooms-callback"><a href="#socket-join-rooms-callback" class="headerlink" title="socket.join(rooms[, callback])"></a>socket.join(rooms[, callback])</h4><h4 id="socket-leave-room-callback"><a href="#socket-leave-room-callback" class="headerlink" title="socket.leave(room[, callback])"></a>socket.leave(room[, callback])</h4><h4 id="socket-to-room"><a href="#socket-to-room" class="headerlink" title="socket.to(room)"></a>socket.to(room)</h4><h4 id="socket-in-room"><a href="#socket-in-room" class="headerlink" title="socket.in(room)"></a>socket.in(room)</h4><h4 id="socket-compress-value"><a href="#socket-compress-value" class="headerlink" title="socket.compress(value)"></a>socket.compress(value)</h4><h4 id="socket-disconnect-close"><a href="#socket-disconnect-close" class="headerlink" title="socket.disconnect(close)"></a>socket.disconnect(close)</h4><h3 id="客户端API"><a href="#客户端API" class="headerlink" title="客户端API"></a>客户端API</h3><figure class="highlight plain"><figcaption><span>lang</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">客户端`socket.on()`监听的事件：</span><br><span class="line">connect：连接成功, 在连接包括成功重新连接时被触发。</span><br><span class="line">connecting：正在连接</span><br><span class="line">disconnect：断开连接</span><br><span class="line">connect_failed：连接失败</span><br><span class="line">error：错误发生，并且无法被其他事件类型所处理</span><br><span class="line">ping：当 `ping` 数据包写入服务器时触发。</span><br><span class="line">pong：从服务器接收到 `pong` 时被点燃。</span><br><span class="line">reconnect_failed：重连失败</span><br><span class="line">reconnect：成功重连</span><br><span class="line">reconnecting：正在重连当第一次连接时，事件触发顺序为：connecting -&gt; connect；</span><br><span class="line">当失去连接时，事件触发顺序为：</span><br><span class="line">disconnect -&gt; reconnecting（可能进行多次）-&gt; connecting -&gt; reconnect -&gt; connect。</span><br></pre></td></tr></table></figure>
+<h4 id="io"><a href="#io" class="headerlink" title="io"></a>io</h4><p><code>io([url][, options])</code>, 始一个 <code>socket</code> 实例。</p>
+<ul>
+<li><code>url</code> (String) (默认 <code>window.location</code>)</li>
+<li><code>options</code> (Object)<ul>
+<li><code>forceNew</code> (Boolean) 是否重用现有连接</li>
+</ul>
+</li>
+<li>返回 <code>Socket</code></li>
+</ul>
+<h4 id="初始化示例"><a href="#初始化示例" class="headerlink" title="初始化示例"></a>初始化示例</h4><h5 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h5><p>默认情况下，连接到不同的命名空间时使用单个连接（以最小化资源）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> socket = io();</span><br><span class="line"><span class="keyword">const</span> adminSocket = io(<span class="string">'/admin'</span>);</span><br><span class="line"><span class="comment">// 将建立一个连接</span></span><br></pre></td></tr></table></figure>
+<p>可以通过 <code>forceNew</code> 选项禁用该行为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> socket = io();</span><br><span class="line"><span class="keyword">const</span> adminSocket = io(<span class="string">'/admin'</span>, &#123; <span class="attr">forceNew</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="comment">// 将创建两个不同的连接</span></span><br></pre></td></tr></table></figure>
+<p>注意：重用同一个命名空间也将创建两个连接</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> socket = io();</span><br><span class="line"><span class="keyword">const</span> socket2 = io();</span><br><span class="line"><span class="comment">// 也将创建两个不同的连接</span></span><br></pre></td></tr></table></figure>
+<h5 id="用自定义-path"><a href="#用自定义-path" class="headerlink" title="用自定义 path"></a>用自定义 <code>path</code></h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> socket = io(<span class="string">'http://localhost'</span>, &#123;</span><br><span class="line">  path: <span class="string">'/myownpath'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后台服务端</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(&#123;</span><br><span class="line">  path: <span class="string">'/myownpath'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面示例的请求网址将会是这样： <code>localhost/myownpath/?EIO=3&amp;transport=polling&amp;sid=&lt;id&gt;</code></p>
+<h5 id="带有查询参数"><a href="#带有查询参数" class="headerlink" title="带有查询参数"></a>带有查询参数</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html 带上参数token</span></span><br><span class="line"><span class="keyword">const</span> socket = io(<span class="string">'http://localhost?token=abc'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后台服务端</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间件、路由</span></span><br><span class="line">io.use(<span class="function">(<span class="params">socket, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> token = socket.handshake.query.token;</span><br><span class="line">  <span class="keyword">if</span> (isValid(token)) &#123;</span><br><span class="line">    <span class="keyword">return</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'authentication error'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 然后后台连接</span></span><br><span class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> token = socket.handshake.query.token;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="带查询选项"><a href="#带查询选项" class="headerlink" title="带查询选项"></a>带查询选项</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html 带上参数token</span></span><br><span class="line"><span class="keyword">const</span> socket = io(&#123;</span><br><span class="line">  query: &#123;</span><br><span class="line">    token: <span class="string">'cde'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>还可以在重新连接时更新查询内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html</span></span><br><span class="line">socket.on(<span class="string">'reconnect_attempt'</span>, () =&gt; &#123;</span><br><span class="line">  socket.io.opts.query = &#123;</span><br><span class="line">    token: <span class="string">'fgh'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="带自定义消息头"><a href="#带自定义消息头" class="headerlink" title="带自定义消息头"></a>带自定义消息头</h5><p>这仅在<code>polling</code>参数里有效，默认是启用的。<br>使用websocket传输时不会附加自定义标题。<br>因为WebSocket握手不符合自定义标头。<br>（对于后台请参阅<a href="https://tools.ietf.org/html/rfc6455#section-4" target="_blank" rel="noopener">WebSocket协议RFC</a>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html 带上参数token</span></span><br><span class="line"><span class="keyword">const</span> socket = io(&#123;</span><br><span class="line">  transportOptions: &#123;</span><br><span class="line">    polling: &#123;</span><br><span class="line">      extraHeaders: &#123;</span><br><span class="line">        <span class="string">'x-clientid'</span>: <span class="string">'abc'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// server-side</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// middleware</span></span><br><span class="line">io.use(<span class="function">(<span class="params">socket, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> clientId = socket.handshake.headers[<span class="string">'x-clientid'</span>];</span><br><span class="line">  <span class="keyword">if</span> (isValid(clientId)) &#123;</span><br><span class="line">    <span class="keyword">return</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'authentication error'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="使用-websocket-传输"><a href="#使用-websocket-传输" class="headerlink" title="使用 websocket 传输"></a>使用 <code>websocket</code> 传输</h5><p>默认情况下，首先建立长轮询连接，然后升级为“更好”的传输（如WebSocket）。对传输要求不太高，可以跳过这个部分：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html</span></span><br><span class="line"><span class="keyword">const</span> socket = io(&#123;</span><br><span class="line">  transports: [<span class="string">'websocket'</span>]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 `reconnection` 重连时可以重置 `transports` 选项, 如：`websocket`、 `polling`</span></span><br><span class="line"><span class="comment">// 连接时有可能会失败 (原因可能是 跨域问题, 防火墙, 浏览器, 等)</span></span><br><span class="line">socket.on(<span class="string">'reconnect_attempt'</span>, () =&gt; &#123;</span><br><span class="line">  socket.io.opts.transports = [<span class="string">'polling'</span>, <span class="string">'websocket'</span>];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="用自定义解析器"><a href="#用自定义解析器" class="headerlink" title="用自定义解析器"></a>用自定义解析器</h5><p>默认的<a href="https://github.com/socketio/socket.io-parser" target="_blank" rel="noopener">解析器</a>（支持Blob，File，二进制）传输时会有性能牺牲。<br>但可以提供自定义解析器来满足应用程序的需求。请看这里的例子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html</span></span><br><span class="line"><span class="keyword">const</span> parser = <span class="built_in">require</span>(<span class="string">'socket.io-msgpack-parser'</span>); <span class="comment">// or require('socket.io-json-parser')</span></span><br><span class="line"><span class="keyword">const</span> socket = io(&#123;</span><br><span class="line">  parser: parser</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后台必需用相同的解析器才能连通</span></span><br><span class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(&#123;</span><br><span class="line">  parser: parser</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><h5 id="socket-id-1"><a href="#socket-id-1" class="headerlink" title="socket.id"></a>socket.id</h5><p><code>socket.id</code> 为20位随机string，<code>socket</code>实例的唯一标识符，在触发连接事件后设置, 并在重新连接事件之后更新。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html</span></span><br><span class="line"><span class="keyword">const</span> socket = io(<span class="string">'http://localhost'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(socket.id); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">socket.on(<span class="string">'connect'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(socket.id); <span class="comment">// 'G5p5...'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="socket-open"><a href="#socket-open" class="headerlink" title="socket.open()"></a>socket.open()</h5><p>同 <code>socket.connect()</code>返回 <code>Socket</code>, 手动打开与后台的连接。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html</span></span><br><span class="line"><span class="keyword">const</span> socket = io(&#123;</span><br><span class="line">  autoConnect: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">socket.open();</span><br></pre></td></tr></table></figure>
+<p>它也可以用于手动重新连接：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端html</span></span><br><span class="line">socket.on(<span class="string">'disconnect'</span>, () =&gt; &#123;</span><br><span class="line">  socket.open();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="socket-emit-1"><a href="#socket-emit-1" class="headerlink" title="socket.emit"></a>socket.emit</h5><p>向后台发送消息<br>socket.emit(eventName [，… args] [，ack]),<br>socket.send([… args] [，ack])二者等价</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">socket.emit(<span class="string">'hello'</span>, <span class="string">'world'</span>);</span><br><span class="line">socket.emit(<span class="string">'with-binary'</span>, <span class="number">1</span>, <span class="string">'2'</span>, &#123; <span class="number">3</span>: <span class="string">'4'</span>, <span class="number">5</span>: <span class="keyword">new</span> Buffer(<span class="number">6</span>) &#125;);</span><br></pre></td></tr></table></figure>
+<p>该 <code>ack</code> 参数是可选的，用于服务器回调。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">socket.emit(<span class="string">'ferret'</span>, <span class="string">'tobi'</span>, (data) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data); <span class="comment">// 将打印 'woot'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// server:</span></span><br><span class="line"><span class="comment">//  io.on('connection', (socket) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//    socket.on('ferret', (name, fn) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//      fn('woot');</span></span><br><span class="line"><span class="comment">//    &#125;);</span></span><br><span class="line"><span class="comment">//  &#125;);</span></span><br></pre></td></tr></table></figure>
+<h5 id="socket-on"><a href="#socket-on" class="headerlink" title="socket.on"></a>socket.on</h5><p>注册事件监听, 不能放在connect里面，否则在联通重联时会多次注册<br>socket.on(eventName，callback)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">socket.on(<span class="string">'news'</span>, (data) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// with multiple arguments</span></span><br><span class="line">socket.on(<span class="string">'news'</span>, (arg1, arg2, arg3, arg4) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// with callback</span></span><br><span class="line">socket.on(<span class="string">'news'</span>, (cb) =&gt; &#123;</span><br><span class="line">  cb(<span class="number">0</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>类似的方法 <code>off</code> 解除绑定与 <code>on</code> 相反，其它 <code>once</code> 绑定后仅可以调用一次就失效， <code>hasListeners</code> 暂未知道其用意</p>
+<h5 id="socket-compress"><a href="#socket-compress" class="headerlink" title="socket.compress"></a>socket.compress</h5><p>为后续事件的释放设置一个修饰符, 仅当该值为 true 时, 事件数据才会被压缩，在不调用 <code>socket.compress</code> 方法时, 默认为 true。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">socket.emit(<span class="string">'an event'</span>, &#123; <span class="attr">some</span>: <span class="string">'data'</span> &#125;); <span class="comment">// 等价于 socket.compress(true).emit('', '')</span></span><br><span class="line">socket.compress(<span class="literal">false</span>).emit(<span class="string">'an event'</span>, &#123; <span class="attr">some</span>: <span class="string">'data'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="socket-close"><a href="#socket-close" class="headerlink" title="socket.close"></a>socket.close</h5><p>手动关闭 <code>socket</code> 实例连接，等价于 <code>socket.disconnect()</code></p>
+<blockquote>
+<p>不太擅长写作，组织有些混乱。。。费了老大劲。。。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/libs/" rel="tag"># libs</a>
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/api/" rel="tag"># api</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/13/CPU/" rel="next" title="CPU常识">
+                <i class="fa fa-chevron-left"></i> CPU常识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/08/Front-end-of-those-things/" rel="prev" title="前端那些事">
+                前端那些事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTExMS83NjYw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://owz81uqpo.bkt.clouddn.com/20150131_154827000_iOS.jpg"
+                alt="Freeser" />
+            
+              <p class="site-author-name" itemprop="name">Freeser</p>
+              <p class="site-description motion-element" itemprop="description">个人博客，写一些工作常用的小工具，备份一些代码...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/freeser" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:freeser@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/108392057455602995990" target="_blank" title="Google">
+                    
+                      <i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/liu_freeser" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/freeser" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/freeser" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-yelp"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#后台服务"><span class="nav-number">1.</span> <span class="nav-text">后台服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端页面"><span class="nav-number">2.</span> <span class="nav-text">前端页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶实例"><span class="nav-number">3.</span> <span class="nav-text">进阶实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与后台交流"><span class="nav-number">3.1.</span> <span class="nav-text">与后台交流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#群聊"><span class="nav-number">3.2.</span> <span class="nav-text">群聊</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket-IO-API"><span class="nav-number">4.</span> <span class="nav-text">Socket.IO API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端API"><span class="nav-number">4.1.</span> <span class="nav-text">服务端API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#new-Server"><span class="nav-number">4.1.1.</span> <span class="nav-text">new Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-sockets"><span class="nav-number">4.1.2.</span> <span class="nav-text">server.sockets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-serveClient"><span class="nav-number">4.1.3.</span> <span class="nav-text">server.serveClient</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-path"><span class="nav-number">4.1.4.</span> <span class="nav-text">server.path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-adapter-value"><span class="nav-number">4.1.5.</span> <span class="nav-text">server.adapter([value])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-origins"><span class="nav-number">4.1.6.</span> <span class="nav-text">server.origins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-attach"><span class="nav-number">4.1.7.</span> <span class="nav-text">server.attach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-listen"><span class="nav-number">4.1.8.</span> <span class="nav-text">server.listen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-of-nsp"><span class="nav-number">4.1.9.</span> <span class="nav-text">server.of(nsp)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server-close"><span class="nav-number">4.1.10.</span> <span class="nav-text">server.close</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#namespace-to-room"><span class="nav-number">4.1.11.</span> <span class="nav-text">namespace.to(room)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#namespace-emit"><span class="nav-number">4.1.12.</span> <span class="nav-text">namespace.emit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#namespace-clients-callback"><span class="nav-number">4.1.13.</span> <span class="nav-text">namespace.clients(callback)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#namespace-use-fn"><span class="nav-number">4.1.14.</span> <span class="nav-text">namespace.use(fn)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-id"><span class="nav-number">4.1.15.</span> <span class="nav-text">socket.id</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-rooms"><span class="nav-number">4.1.16.</span> <span class="nav-text">socket.rooms</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-client"><span class="nav-number">4.1.17.</span> <span class="nav-text">socket.client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-use"><span class="nav-number">4.1.18.</span> <span class="nav-text">socket.use</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-send"><span class="nav-number">4.1.19.</span> <span class="nav-text">socket.send</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-emit"><span class="nav-number">4.1.20.</span> <span class="nav-text">socket.emit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-on-eventName-listener"><span class="nav-number">4.1.21.</span> <span class="nav-text">socket.on(eventName, listener)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-once-eventName-listener"><span class="nav-number">4.1.22.</span> <span class="nav-text">socket.once(eventName, listener)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-removeListener-eventName-listener"><span class="nav-number">4.1.23.</span> <span class="nav-text">socket.removeListener(eventName, listener)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-join-room-callback"><span class="nav-number">4.1.24.</span> <span class="nav-text">socket.join(room[, callback])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-join-rooms-callback"><span class="nav-number">4.1.25.</span> <span class="nav-text">socket.join(rooms[, callback])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-leave-room-callback"><span class="nav-number">4.1.26.</span> <span class="nav-text">socket.leave(room[, callback])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-to-room"><span class="nav-number">4.1.27.</span> <span class="nav-text">socket.to(room)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-in-room"><span class="nav-number">4.1.28.</span> <span class="nav-text">socket.in(room)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-compress-value"><span class="nav-number">4.1.29.</span> <span class="nav-text">socket.compress(value)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket-disconnect-close"><span class="nav-number">4.1.30.</span> <span class="nav-text">socket.disconnect(close)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端API"><span class="nav-number">4.2.</span> <span class="nav-text">客户端API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#io"><span class="nav-number">4.2.1.</span> <span class="nav-text">io</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化示例"><span class="nav-number">4.2.2.</span> <span class="nav-text">初始化示例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#多路复用"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用自定义-path"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">用自定义 path</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带有查询参数"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">带有查询参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带查询选项"><span class="nav-number">4.2.2.4.</span> <span class="nav-text">带查询选项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带自定义消息头"><span class="nav-number">4.2.2.5.</span> <span class="nav-text">带自定义消息头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-websocket-传输"><span class="nav-number">4.2.2.6.</span> <span class="nav-text">使用 websocket 传输</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用自定义解析器"><span class="nav-number">4.2.2.7.</span> <span class="nav-text">用自定义解析器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Socket"><span class="nav-number">4.2.3.</span> <span class="nav-text">Socket</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#socket-id-1"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">socket.id</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#socket-open"><span class="nav-number">4.2.3.2.</span> <span class="nav-text">socket.open()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#socket-emit-1"><span class="nav-number">4.2.3.3.</span> <span class="nav-text">socket.emit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#socket-on"><span class="nav-number">4.2.3.4.</span> <span class="nav-text">socket.on</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#socket-compress"><span class="nav-number">4.2.3.5.</span> <span class="nav-text">socket.compress</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#socket-close"><span class="nav-number">4.2.3.6.</span> <span class="nav-text">socket.close</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Freeser</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

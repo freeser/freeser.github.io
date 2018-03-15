@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+  <meta name="keywords" content="css,css3," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="pointer-events 把值设置为none可以让元素不捕获事件，可以理解为让他看得见摸不着  源：应用举例及扩展">
+<meta name="keywords" content="css,css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css-cheatsheet">
+<meta property="og:url" content="http://liufeize.com/2017/09/29/css-cheatsheet/index.html">
+<meta property="og:site_name" content="迷途">
+<meta property="og:description" content="pointer-events 把值设置为none可以让元素不捕获事件，可以理解为让他看得见摸不着  源：应用举例及扩展">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://liufeize.com/img/css-sheet-1.png">
+<meta property="og:updated_time" content="2018-03-15T01:47:48.162Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css-cheatsheet">
+<meta name="twitter:description" content="pointer-events 把值设置为none可以让元素不捕获事件，可以理解为让他看得见摸不着  源：应用举例及扩展">
+<meta name="twitter:image" content="http://liufeize.com/img/css-sheet-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liufeize.com/2017/09/29/css-cheatsheet/"/>
+
+
+
+
+
+  <title>css-cheatsheet | 迷途</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">迷途</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">雾隐寻归路，叠嶂道无影</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liufeize.com/2017/09/29/css-cheatsheet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Freeser">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://owz81uqpo.bkt.clouddn.com/20150131_154827000_iOS.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css-cheatsheet</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T17:30:17+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/代码片断/" itemprop="url" rel="index">
+                    <span itemprop="name">代码片断</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="pointer-events"><a href="#pointer-events" class="headerlink" title="pointer-events"></a>pointer-events</h3><blockquote>
+<p>把值设置为none可以让元素不捕获事件，可以理解为让他看得见摸不着<br>  源：<a href="http://www.zhangxinxu.com/wordpress/2011/12/css3-pointer-events-none-javascript/" target="_blank" rel="noopener">应用举例及扩展</a> </p>
+</blockquote>
+<a id="more"></a> 
+<h3 id="currentColor"><a href="#currentColor" class="headerlink" title="currentColor"></a>currentColor</h3><blockquote>
+<p>是color属性的值,border: 1px solid currentColor; 继承自color</p>
+</blockquote>
+<h3 id="user-select"><a href="#user-select" class="headerlink" title="user-select"></a>user-select</h3><blockquote>
+<p>禁止选择文本<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::selection</span> &#123; <span class="attribute">user-select</span>: none; &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="selection"><a href="#selection" class="headerlink" title="selection"></a>selection</h3><blockquote>
+<p>可设置文字被选择时的样式<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::selection</span> &#123; <span class="attribute">background</span>: <span class="number">#FE6E66</span>;<span class="attribute">color</span>: <span class="number">#FFF</span>;&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="image-set"><a href="#image-set" class="headerlink" title="image-set"></a>image-set</h3><blockquote>
+<p>在不同设备像素比的屏幕下，自动加载2倍，3倍图<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123; <span class="attribute">background-image</span>: <span class="built_in">image-set</span>( url(test@2x.png) <span class="number">2</span>x, </span><br><span class="line">                                   <span class="built_in">url</span>(test@3x.png) <span class="number">3</span>x );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="object-fit"><a href="#object-fit" class="headerlink" title="object-fit"></a>object-fit</h3><blockquote>
+<p>解决img图片变形问题, cover自适应裁剪，contain全包容</p>
+</blockquote>
+<h3 id="backdrop-filter"><a href="#backdrop-filter" class="headerlink" title="backdrop-filter"></a>backdrop-filter</h3><blockquote>
+<p>它可以实现 filter 的绝大多数效果，但仅对背景生效。background-color: rgba(255, 255, 255, 0.5);-webkit-backdrop-filter: blur(10px);</p>
+</blockquote>
+<h3 id="mix-blend-mode"><a href="#mix-blend-mode" class="headerlink" title="mix-blend-mode"></a>mix-blend-mode</h3><blockquote>
+<p>实现photoshop里的各种图层叠加效果</p>
+</blockquote>
+<h3 id="text-transform"><a href="#text-transform" class="headerlink" title="text-transform"></a>text-transform</h3><blockquote>
+<p>属性控制文本的大小写。uppercase,lowercase,capitalize</p>
+</blockquote>
+<h3 id="font-family"><a href="#font-family" class="headerlink" title="font-family"></a>font-family</h3><blockquote>
+<p>在 iOS 和 macOS 的 Safari 和 web view 中使用系统默认 UI 字体。/<em> 如果要兼容 10.10 请使用 -apple-system-font。</em>/<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class</span>&#123; <span class="attribute">font-family</span>: -apple-system; &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="backface-visibility"><a href="#backface-visibility" class="headerlink" title="backface-visibility"></a>backface-visibility</h3><blockquote>
+<p>属性定义当元素不面向屏幕时是否可见。如果在旋转元素不希望看到其背面时，该属性很有用。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class</span>&#123; <span class="attribute">-webkit-backface-visibility</span>: hidden; &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="clip-path"><a href="#clip-path" class="headerlink" title="clip-path"></a>clip-path</h3><blockquote>
+<p>clip-path inset图片剪裁<br>  源：<a href="http://www.zhangxinxu.com/wordpress/2014/12/css3-svg-clip-path/" target="_blank" rel="noopener">clip-path路径剪裁遮罩属性简介</a> </p>
+</blockquote>
+<h3 id="contain"><a href="#contain" class="headerlink" title="contain"></a>contain</h3><blockquote>
+<p>属性允许开发者声明当前元素和它的内容尽可能的独立于其他部分的 Dom 树。<br>  源：<a href="http://www.zcfy.cc/article/5-css-properties-that-you-probably-don-039-t-know-3919.html" target="_blank" rel="noopener">5个你可能不知道的CSS属性</a> </p>
+</blockquote>
+<h3 id="direction：ltr-rtl"><a href="#direction：ltr-rtl" class="headerlink" title="direction：ltr | rtl"></a>direction：ltr | rtl</h3><blockquote>
+<p>检索或设置文本流的方向。</p>
+</blockquote>
+<h3 id="webkit-font-smoothing"><a href="#webkit-font-smoothing" class="headerlink" title="-webkit-font-smoothing"></a>-webkit-font-smoothing</h3><blockquote>
+<p>让页面里的字体变清晰</p>
+</blockquote>
+<h3 id="calc"><a href="#calc" class="headerlink" title="calc"></a>calc</h3><blockquote>
+<p>百分数可以-分辨率。<br>在用easy Less时自动转换时会将calc内的表达式计算，解决方案如下片断二<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*&#123;width: calc(100% - 90px) &#125; //片断一，正常情况</span><br><span class="line">*&#123;width: calc(~"100% - 90px")&#125; // 片断二，easy less时</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="关于如何去掉手机浏览器都会给网页的onclick事件一个点击效果"><a href="#关于如何去掉手机浏览器都会给网页的onclick事件一个点击效果" class="headerlink" title="关于如何去掉手机浏览器都会给网页的onclick事件一个点击效果"></a>关于如何去掉手机浏览器都会给网页的onclick事件一个点击效果</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*&#123;<span class="attribute">-webkit-tap-highlight-color</span>:<span class="built_in">rgba</span>(0,0,0,0);&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="现在很多for-Mobile的HTML5网页内都有快速滚动和回弹的效果，看上去和原生app的效率都有得一拼。"><a href="#现在很多for-Mobile的HTML5网页内都有快速滚动和回弹的效果，看上去和原生app的效率都有得一拼。" class="headerlink" title="现在很多for Mobile的HTML5网页内都有快速滚动和回弹的效果，看上去和原生app的效率都有得一拼。"></a>现在很多for Mobile的HTML5网页内都有快速滚动和回弹的效果，看上去和原生app的效率都有得一拼。</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123; <span class="attribute">-webkit-overflow-scrolling</span>: touch;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="去掉手机浏览器上表单的内阴影"><a href="#去掉手机浏览器上表单的内阴影" class="headerlink" title="去掉手机浏览器上表单的内阴影"></a>去掉手机浏览器上表单的内阴影</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type="button"]</span>,<span class="selector-tag">textarea</span> &#123;  <span class="attribute">-webkit-appearance</span>: none;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="从左边飘过来的css代码"><a href="#从左边飘过来的css代码" class="headerlink" title="从左边飘过来的css代码"></a>从左边飘过来的css代码</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">aside</span> &#123;</span><br><span class="line">     <span class="attribute">position</span>: fixed;</span><br><span class="line">     <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">     <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">     <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">     <span class="attribute">transform</span>: <span class="built_in">translateX</span>(100%);</span><br><span class="line">     <span class="attribute">transition</span>: <span class="number">0.3s</span> all ease-out;</span><br><span class="line">     <span class="attribute">background-color</span>: <span class="number">#efefef</span>;</span><br><span class="line">     <span class="attribute">padding</span>: <span class="number">1rem</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="selector-tag">input</span><span class="selector-attr">[type=checkbox]</span><span class="selector-pseudo">:checked</span> ~ <span class="selector-tag">aside</span> &#123;</span><br><span class="line">     <span class="attribute">transform</span>: <span class="built_in">translateX</span>(0);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="超过多行时自动加省略号"><a href="#超过多行时自动加省略号" class="headerlink" title="超过多行时自动加省略号"></a>超过多行时自动加省略号</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.whitespace2</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: -webkit-box;</span><br><span class="line">    <span class="attribute">-webkit-box-orient</span>: vertical;</span><br><span class="line">    <span class="attribute">-webkit-line-clamp</span>: <span class="number">2</span>; </span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="百分比失效"><a href="#百分比失效" class="headerlink" title="百分比失效"></a>百分比失效</h3><blockquote>
+<p>border-radius百分比失效<br>  Android2.3.x<br>  设置一个较大值，解决方案：border-radius:9999px</p>
+</blockquote>
+<h3 id="css的line-height属性会有2px的上移"><a href="#css的line-height属性会有2px的上移" class="headerlink" title="css的line-height属性会有2px的上移"></a>css的line-height属性会有2px的上移</h3><blockquote>
+<p>placeholder属性设置的文字向上偏移的厉害    Android 机型，小于12px时更明显。<br>  解决方案：line-height:normal，效果不太好，用padding撑也不太好，如果哪个大神有高招，还请指点一下</p>
+</blockquote>
+<h3 id="counter"><a href="#counter" class="headerlink" title="counter"></a>counter</h3><img src="/img/css-sheet-1.png" title="css计数器">
+<h3 id="perspective透视，视角"><a href="#perspective透视，视角" class="headerlink" title="perspective透视，视角"></a>perspective透视，视角</h3><p>perspective这玩意是做3D效果的，但为甚我做demo楞没看出perspective加上去有任何3D。拜读过 张鑫旭 的博文后才了解perspective是透视(学美术，建筑的肯定懂，不懂得我也解释的不专业，个人理解为景深)。既然perspective是透视，从理解上说就应该用在场景样式上，场景有了透视元素就能做3D特效了。</p>
+<p>perspective在Z轴上，而perspective是设置Z轴的长度。在css3中只有设置了perspective的值元素才会有Z轴，perspective为none元素则没有Z轴(就是2D元素)。</p>
+<ul>
+<li>rotateZ:div围绕Z轴旋转，以div中心点为轴心旋转</li>
+<li>rotateX:div围绕X轴旋转，以div横向中轴为轴心前后翻转</li>
+<li>rotateY:div围绕Y轴旋转，以div纵向中轴为轴心左右翻转</li>
+</ul>
+<p>参考：<a href="http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/" target="_blank" rel="noopener">CSS3 3D transform变换，不过如此</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"selected"</span>&gt;</span>Projects<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span>Content area<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"selected"</span>&gt;</span>Projects<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span>Content area<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"selected"</span>&gt;</span>Projects<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span>Content area<span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">40px</span>;</span><br><span class="line">	<span class="attribute">font</span>: <span class="number">130%</span>/<span class="number">2</span> Frutiger LT Std, sans-serif;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: relative;</span><br><span class="line">	<span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">	<span class="attribute">padding-left</span>: <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> &gt; <span class="selector-tag">a</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: relative;</span><br><span class="line">	<span class="attribute">display</span>: inline-block;</span><br><span class="line">	<span class="attribute">padding</span>: .<span class="number">3em</span> <span class="number">1em</span> <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">color</span>: inherit;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span> -.<span class="number">3em</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="selector-tag">nav</span> &gt; <span class="selector-tag">a</span><span class="selector-pseudo">::before</span>,</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">	<span class="attribute">border</span>: .<span class="number">1em</span> solid <span class="built_in">rgba</span>(0,0,0,.4);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> <span class="selector-tag">a</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">	<span class="attribute">content</span>: <span class="string">''</span>; <span class="comment">/* To generate the box */</span></span><br><span class="line">	<span class="attribute">position</span>: absolute;</span><br><span class="line">	<span class="attribute">top</span>: <span class="number">0</span>; <span class="attribute">right</span>: <span class="number">0</span>; <span class="attribute">bottom</span>: <span class="number">0</span>; <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">z-index</span>: -<span class="number">1</span>;</span><br><span class="line">	<span class="attribute">border-bottom</span>: none;</span><br><span class="line">	<span class="attribute">border-radius</span>: .<span class="number">5em</span> .<span class="number">5em</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="number">#ccc</span> <span class="built_in">linear-gradient</span>(hsla(0,0%,100%,.6), <span class="built_in">hsla</span>(0,0%,100%,0));</span><br><span class="line">	<span class="attribute">box-shadow</span>: <span class="number">0</span> .<span class="number">15em</span> white inset;</span><br><span class="line">	<span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1, 1.3) <span class="built_in">perspective</span>(.5em) <span class="built_in">rotateX</span>(5deg);</span><br><span class="line">	<span class="attribute">transform-origin</span>: bottom;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span> <span class="selector-tag">a</span><span class="selector-class">.selected</span> &#123; <span class="attribute">z-index</span>: <span class="number">2</span>;&#125;</span><br><span class="line"><span class="selector-tag">nav</span> <span class="selector-tag">a</span><span class="selector-class">.selected</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="number">#eee</span>;</span><br><span class="line">	<span class="attribute">margin-bottom</span>: -.<span class="number">08em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">main</span> &#123;</span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line">	<span class="attribute">margin-bottom</span>: <span class="number">1em</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: .<span class="number">15em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span><span class="selector-class">.left</span> &gt; <span class="selector-tag">a</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">	<span class="attribute">transform</span>: <span class="built_in">scale</span>(1.2, 1.3) <span class="built_in">perspective</span>(.5em) <span class="built_in">rotateX</span>(5deg);</span><br><span class="line">	<span class="attribute">transform-origin</span>: bottom left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">nav</span><span class="selector-class">.right</span> &#123; <span class="attribute">padding-left</span>: <span class="number">2em</span>; &#125;</span><br><span class="line"><span class="selector-tag">nav</span><span class="selector-class">.right</span> &gt; <span class="selector-tag">a</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">	<span class="attribute">transform</span>: <span class="built_in">scale</span>(1.2, 1.3) <span class="built_in">perspective</span>(.5em) <span class="built_in">rotateX</span>(5deg);</span><br><span class="line">	<span class="attribute">transform-origin</span>: bottom right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="input-range-自定义样式"><a href="#input-range-自定义样式" class="headerlink" title="input[range]自定义样式"></a>input[range]自定义样式</h3><p>美化滑动控件，需要完成以下的五个步骤：</p>
+<ul>
+<li>去除系统默认的样式；</li>
+<li>给滑动轨道(track)添加样式；</li>
+<li>给滑块(thumb)添加样式；</li>
+<li>根据滑块所在位置填充进度条；</li>
+<li>实现多浏览器兼容。</li>
+</ul>
+<p>如果想要实现填充进度条的效果，在IE 9以上的浏览器中可以使用 <code>::-ms-fill-lower</code> 和 <code>::-ms-fill-upper</code> 来自定义进度条；在Firefox浏览器中则可以通过 <code>::-moz-range-progress</code> 来自定义；而Chrome浏览器中不支持直接设置进度条，而达到填充的效果，所以首先针对Chrome浏览器来实现整个流程。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span> &#123;</span><br><span class="line">    <span class="attribute">-webkit-appearance</span>: none; <span class="comment">/*1、去除系统默认的样式*/</span></span><br><span class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">-webkit-linear-gradient</span>(#61bd12, #61bd12) no-repeat, <span class="number">#ddd</span>; <span class="comment">/*设置左边颜色为#61bd12，右边颜色为#ddd*/</span></span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">75%</span> <span class="number">100%</span>; <span class="comment">/*设置左右宽度比例，可以通过js修改background-size到控制*/</span></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>; <span class="comment">/*这个属性设置使填充进度条时的图形为圆角*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*2、给滑动轨道(track)添加样式*/</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-webkit-slider-runnable-track</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">6px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>; <span class="comment">/*将滑动轨道设为圆角的*/</span></span><br><span class="line">    <span class="comment">/*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;*/</span> <span class="comment">/*滑动轨道内置阴影效果*/</span></span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#ccc</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*原始的控件获取到焦点时，会显示包裹整个控件的边框，所以还需要把边框取消。*/</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">    <span class="attribute">outline</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*3、对滑块的样式进行变更*/</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-webkit-slider-thumb</span> &#123;</span><br><span class="line">    <span class="attribute">-webkit-appearance</span>: none; <span class="comment">/*1、去除系统默认的样式*/</span></span><br><span class="line">    <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">margin-top</span>: -<span class="number">7px</span>; <span class="comment">/*使滑块超出轨道部分的偏移量相等*/</span></span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#61bd12</span>; </span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>; <span class="comment">/*外观设置为圆形*/</span></span><br><span class="line">    <span class="attribute">border</span>: solid <span class="number">0.125em</span> <span class="built_in">rgba</span>(205, 224, 230, 0.5); <span class="comment">/*设置边框*/</span></span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> .<span class="number">125em</span> .<span class="number">125em</span> <span class="number">#3b4547</span>; <span class="comment">/*添加底部阴影*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*4、chrome浏览器滑块所在位置填充需要依赖js事件*/</span></span><br></pre></td></tr></table></figure>
+<p>如果要兼容Firefox浏览器，只需要把上述css代码中的 <code>::-webkit-slider-runnable-track</code> 替换为 <code>::-moz-range-track</code> ，就可以完成对轨道的美化了；</p>
+<p>把css代码中的 <code>::-webkit-slider-thumb</code> 替换为 <code>::-moz-range-thumb</code> ，这是对滑块的样式进行改造；</p>
+<p>而如果是要填充进度条就很简单了，不需要调用js了; 只需要新增如下的css代码即可</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-moz-range-progress</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, #059CFA, white 100%, white);</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">13px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要想兼容IE 9以上版本的浏览器，对上述css代码要修改的地方稍微多了一些，下面先将针对IE 9+的css代码贴出来</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span> &#123;</span><br><span class="line">	<span class="attribute">-webkit-appearance</span>: none;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-ms-track</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">	<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> <span class="number">#def3f8</span>, inset <span class="number">0</span> .<span class="number">125em</span> .<span class="number">125em</span> <span class="number">#0d1112</span>;</span><br><span class="line">	<span class="attribute">border-color</span>: transparent; <span class="comment">/*去除原有边框*/</span></span><br><span class="line">	<span class="attribute">color</span>: transparent; <span class="comment">/*去除轨道内的竖线*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-ms-thumb</span> &#123;</span><br><span class="line">	<span class="attribute">border</span>: solid <span class="number">0.125em</span> <span class="built_in">rgba</span>(205, 224, 230, 0.5);</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">25px</span>;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">25px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="number">#ffffff</span>;</span><br><span class="line">	<span class="attribute">margin-top</span>: -<span class="number">5px</span>;</span><br><span class="line">	<span class="attribute">box-shadow</span>: <span class="number">0</span> .<span class="number">125em</span> .<span class="number">125em</span> <span class="number">#3b4547</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-ms-fill-lower</span> &#123;</span><br><span class="line">	<span class="comment">/*进度条已填充的部分*/</span></span><br><span class="line">	<span class="attribute">height</span>: <span class="number">22px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, #059CFA, white 100%, white);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">::-ms-fill-upper</span> &#123;</span><br><span class="line">	<span class="comment">/*进度条未填充的部分*/</span></span><br><span class="line">	<span class="attribute">height</span>: <span class="number">22px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="number">#ffffff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">::-ms-fill-lower</span> &#123;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, #059CFA, white 100%, white);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=range]</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">::-ms-fill-upper</span> &#123;</span><br><span class="line">	<span class="attribute">background</span>: <span class="number">#ffffff</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a href="http://blog.csdn.net/u013347241/article/details/51560290" target="_blank" rel="noopener">自定义(滑动条)input[type=”range”]样式</a></p>
+<h3 id="CSS-Grid-布局完全指南"><a href="#CSS-Grid-布局完全指南" class="headerlink" title="CSS Grid 布局完全指南"></a>CSS Grid 布局完全指南</h3><p>CSS Grid 布局是 CSS 中最强大的布局系统。与 flexbox 的一维布局系统不同，CSS Grid 布局是一个二维布局系统，也就意味着它可以同时处理列和行。通过将 CSS 规则应用于 父元素 (成为 Grid Container 网格容器)和其 子元素（成为 Grid Items 网格项），你就可以轻松使用 Grid(网格) 布局。</p>
+<p>参考：<a href="http://www.css88.com/archives/8510" target="_blank" rel="noopener">CSS Grid 布局完全指南</a></p>
+<h3 id="css-渐变生成加号减号三角"><a href="#css-渐变生成加号减号三角" class="headerlink" title="css 渐变生成加号减号三角"></a>css 渐变生成加号减号三角</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.tri</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">6px</span>; <span class="attribute">height</span>: <span class="number">6px</span>;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to top, #ddd, #ddd) no-repeat, <span class="built_in">linear-gradient</span>(to right, #ddd, #ddd) no-repeat, <span class="built_in">linear-gradient</span>(135deg, #fff, #fff 6px, hsla(0,0%,100%,0) <span class="number">6px</span>) no-repeat;</span><br><span class="line">	<span class="attribute">background-size</span>: <span class="number">6px</span> <span class="number">1px</span>, <span class="number">1px</span> <span class="number">6px</span>, <span class="number">6px</span> <span class="number">6px</span>;</span><br><span class="line">	<span class="attribute">transform</span>: <span class="built_in">rotate</span>(-45deg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a href="http://www.zhangxinxu.com/wordpress/2017/10/css3-linear-gradient-dashed-triangle-graph/" target="_blank" rel="noopener">CSS3 linear-gradient线性渐变实现虚线等简单实用图形</a></p>
+<h3 id="css-去掉google自动填充的黄色背景"><a href="#css-去掉google自动填充的黄色背景" class="headerlink" title="css 去掉google自动填充的黄色背景"></a>css 去掉google自动填充的黄色背景</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:-webkit-autofill</span>, <span class="selector-tag">textarea</span><span class="selector-pseudo">:-webkit-autofill</span>, <span class="selector-tag">select</span><span class="selector-pseudo">:-webkit-autofill</span> &#123;</span><br><span class="line">    <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1000px</span> white inset <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+            <a href="/tags/css3/" rel="tag"># css3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/29/git-cheatsheet/" rel="next" title="git-cheatsheet">
+                <i class="fa fa-chevron-left"></i> git-cheatsheet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/30/mouseout/" rel="prev" title="关于mouseout离开容器的事件">
+                关于mouseout离开容器的事件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTExMS83NjYw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://owz81uqpo.bkt.clouddn.com/20150131_154827000_iOS.jpg"
+                alt="Freeser" />
+            
+              <p class="site-author-name" itemprop="name">Freeser</p>
+              <p class="site-description motion-element" itemprop="description">个人博客，写一些工作常用的小工具，备份一些代码...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/freeser" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:freeser@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/108392057455602995990" target="_blank" title="Google">
+                    
+                      <i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/liu_freeser" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/freeser" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/freeser" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-yelp"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#pointer-events"><span class="nav-number">1.</span> <span class="nav-text">pointer-events</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#currentColor"><span class="nav-number">2.</span> <span class="nav-text">currentColor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user-select"><span class="nav-number">3.</span> <span class="nav-text">user-select</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selection"><span class="nav-number">4.</span> <span class="nav-text">selection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image-set"><span class="nav-number">5.</span> <span class="nav-text">image-set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-fit"><span class="nav-number">6.</span> <span class="nav-text">object-fit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backdrop-filter"><span class="nav-number">7.</span> <span class="nav-text">backdrop-filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mix-blend-mode"><span class="nav-number">8.</span> <span class="nav-text">mix-blend-mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-transform"><span class="nav-number">9.</span> <span class="nav-text">text-transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#font-family"><span class="nav-number">10.</span> <span class="nav-text">font-family</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backface-visibility"><span class="nav-number">11.</span> <span class="nav-text">backface-visibility</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clip-path"><span class="nav-number">12.</span> <span class="nav-text">clip-path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#contain"><span class="nav-number">13.</span> <span class="nav-text">contain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#direction：ltr-rtl"><span class="nav-number">14.</span> <span class="nav-text">direction：ltr | rtl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webkit-font-smoothing"><span class="nav-number">15.</span> <span class="nav-text">-webkit-font-smoothing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#calc"><span class="nav-number">16.</span> <span class="nav-text">calc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于如何去掉手机浏览器都会给网页的onclick事件一个点击效果"><span class="nav-number">17.</span> <span class="nav-text">关于如何去掉手机浏览器都会给网页的onclick事件一个点击效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现在很多for-Mobile的HTML5网页内都有快速滚动和回弹的效果，看上去和原生app的效率都有得一拼。"><span class="nav-number">18.</span> <span class="nav-text">现在很多for Mobile的HTML5网页内都有快速滚动和回弹的效果，看上去和原生app的效率都有得一拼。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去掉手机浏览器上表单的内阴影"><span class="nav-number">19.</span> <span class="nav-text">去掉手机浏览器上表单的内阴影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从左边飘过来的css代码"><span class="nav-number">20.</span> <span class="nav-text">从左边飘过来的css代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超过多行时自动加省略号"><span class="nav-number">21.</span> <span class="nav-text">超过多行时自动加省略号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百分比失效"><span class="nav-number">22.</span> <span class="nav-text">百分比失效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css的line-height属性会有2px的上移"><span class="nav-number">23.</span> <span class="nav-text">css的line-height属性会有2px的上移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#counter"><span class="nav-number">24.</span> <span class="nav-text">counter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perspective透视，视角"><span class="nav-number">25.</span> <span class="nav-text">perspective透视，视角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#input-range-自定义样式"><span class="nav-number">26.</span> <span class="nav-text">input[range]自定义样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-Grid-布局完全指南"><span class="nav-number">27.</span> <span class="nav-text">CSS Grid 布局完全指南</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css-渐变生成加号减号三角"><span class="nav-number">28.</span> <span class="nav-text">css 渐变生成加号减号三角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css-去掉google自动填充的黄色背景"><span class="nav-number">29.</span> <span class="nav-text">css 去掉google自动填充的黄色背景</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Freeser</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
