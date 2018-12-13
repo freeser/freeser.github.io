@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+  <meta name="keywords" content="javascript,debugger,console,chrome," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="汇总关于Chrome中高度技巧">
+<meta name="keywords" content="javascript,debugger,console,chrome">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome中console的debugger技巧">
+<meta property="og:url" content="http://liufeize.com/2018/12/12/Chrome-console-debugger/index.html">
+<meta property="og:site_name" content="迷途">
+<meta property="og:description" content="汇总关于Chrome中高度技巧">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://liufeize.com/img/console/$i.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/copy.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/store.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/trace.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/console.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/estimate.png">
+<meta property="og:image" content="http://liufeize.com/img/console/battery.png">
+<meta property="og:image" content="http://liufeize.com/img/console/media.png">
+<meta property="og:image" content="http://liufeize.com/img/console/cache.png">
+<meta property="og:image" content="http://liufeize.com/img/console/logstime.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/timeend.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/assert.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/table.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/dir.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/h.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/drag.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/ctrl.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/command.jpg">
+<meta property="og:image" content="http://liufeize.com/img/console/actions.png">
+<meta property="og:image" content="http://liufeize.com/img/console/cut.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/layout.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/theme.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/colorpicker.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/currentcolor.png">
+<meta property="og:image" content="http://liufeize.com/img/console/customcolor.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/format.png">
+<meta property="og:image" content="http://liufeize.com/img/console/format1.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/clown.png">
+<meta property="og:image" content="http://liufeize.com/img/console/shadow.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/timing.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/insert.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/pauseif.gif">
+<meta property="og:image" content="http://liufeize.com/img/console/debuggerconsole.gif">
+<meta property="og:updated_time" content="2018-12-13T09:37:38.649Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome中console的debugger技巧">
+<meta name="twitter:description" content="汇总关于Chrome中高度技巧">
+<meta name="twitter:image" content="http://liufeize.com/img/console/$i.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liufeize.com/2018/12/12/Chrome-console-debugger/"/>
+
+
+
+
+
+  <title>Chrome中console的debugger技巧 | 迷途</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">迷途</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">雾隐寻归路，叠嶂道无影</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liufeize.com/2018/12/12/Chrome-console-debugger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Freeser">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/user/3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chrome中console的debugger技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T20:35:53+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/备忘/" itemprop="url" rel="index">
+                    <span itemprop="name">备忘</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>汇总关于Chrome中高度技巧<br><a id="more"></a> </p>
+<h1 id="快捷使用"><a href="#快捷使用" class="headerlink" title="$快捷使用"></a>$快捷使用</h1><h2 id="0"><a href="#0" class="headerlink" title="$0"></a>$0</h2><p>在<code>Chrome</code>的<code>Elements</code>面板中，<code>$0</code>关联到当前我们选中的<code>html</code>节点。</p>
+<p>理所当然，<code>$1</code> 是我们上一次选择的节点，<code>$2</code>是在那之前选择的节点，等等。一直到 <code>$4</code></p>
+<p>你可以用以上的补充参考来尝试一些相关的操作(例子: <code>$1.appendChild($0)</code>)</p>
+<h2 id="和"><a href="#和" class="headerlink" title="$ 和 $$"></a>$ 和 $$</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ == <span class="built_in">document</span>.querySelector;</span><br><span class="line"><span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'div'</span>)) === $$(<span class="string">'div'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>$$</code> 能节省更多的时间，因为它不仅仅执行<code>document.querySelectorAll</code>并且返回的是一个节点的数组，而不是一个<code>Node list</code></p>
+<h2 id=""><a href="#" class="headerlink" title="$_"></a>$_</h2><p><code>$_</code> 变量是关联在<code>console</code>里面上次执行的结果</p>
+<h2 id="i"><a href="#i" class="headerlink" title="$i"></a>$i</h2><p>在<code>Chrome</code>插件:<a href="https://chrome.google.com/webstore/detail/console-importer/hgajpakhafplebkdljleajgbpdmplhie/related" target="_blank" rel="noopener">Console Importer</a>的帮助之下，你可以快速的在<code>console</code>中引入和把玩一些<code>npm</code>库。<br>直接运行例如 <code>$i(&#39;lodash&#39;)</code> 或者 <code>$i(&#39;moment&#39;)</code> 然后在几秒钟之后，你就可以获取到<code>lodash</code> / <code>momentjs</code>了。<br><img src="/img/console/$i.gif" alt="$i 示例" title="$i 示例"></p>
+<h1 id="copy-…"><a href="#copy-…" class="headerlink" title="copy(…)"></a>copy(…)</h1><p>可以通过全局的方法<code>copy()</code>在<code>console</code>里<code>copy</code>任何你能拿到的资源到我们的粘贴板里，包括我们在上一篇中提及的那些变量。例如 <code>copy($_)</code> 或者 <code>copy($0)</code><br><img src="/img/console/copy.gif" alt="copy 示例" title="copy 示例"></p>
+<h1 id="Store-as-global"><a href="#Store-as-global" class="headerlink" title="Store as global"></a>Store as global</h1><p>如果你在<code>console</code>中打印了一坨数据(例如 你在app中计算出来的一个数组),然后你想对这些数据做一些额外的工作，<br>例如使用我们刚刚提到的<code>copy</code>，你可以很容易的将它变成一个全局变量<br>只需要右击它，并且选择“Store as global variable” (保存为全局变量)这个选项.<br>第一次使用的话，它会创建一个名为 <code>temp1</code> 的变量，然后是 <code>temp2</code> 等等.所以你可以操作各样的数据而不用担心会复写(译注:修改他们原有的值)他们<br><img src="/img/console/store.gif" alt="Store 示例" title="Store 示例"></p>
+<h1 id="保存-Stack-trace-堆栈跟踪"><a href="#保存-Stack-trace-堆栈跟踪" class="headerlink" title="保存(Stack trace)堆栈跟踪"></a>保存(Stack trace)堆栈跟踪</h1><p>对你来说，堆栈跟踪会很有用，但是对于你的同事来说也是这样。(例如 : 与其他的前端开发者合作，或者是QA (测试) 工程师).你可以直接把堆栈跟踪保存为一个文件而不是截个图。<br><img src="/img/console/trace.gif" alt="trace 示例" title="trace 示例"></p>
+<h1 id="Copy-HTML-最快的方式"><a href="#Copy-HTML-最快的方式" class="headerlink" title="Copy HTML (最快的方式)"></a>Copy HTML (最快的方式)</h1><p>你可能知道右击或者点击在<code>html</code>元素边上的省略号(…)就可以将它<code>copy</code>到你的操作系统的剪贴板中</p>
+<p>但是你同样可以用非常古老的<code>[ctrl] + [c]</code>大法来实现同样的效果！</p>
+<h1 id="console"><a href="#console" class="headerlink" title="console"></a>console</h1><blockquote>
+<p><code>console</code>本来就是默认被 <code>async</code>包裹住的，我们可以直接使用<code>awit</code></p>
+</blockquote>
+<p><img src="/img/console/console.gif" alt="console 示例" title="console 示例"></p>
+<h2 id="异步-console"><a href="#异步-console" class="headerlink" title="异步 console"></a>异步 console</h2><ul>
+<li><code>Storage</code> 系统的 占用数 和 空闲数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> navigator.storage.estimate()</span><br></pre></td></tr></table></figure>
+<p><img src="/img/console/estimate.png" alt="estimate 示例" title="estimate 示例"></p>
+<ul>
+<li>你的设备的电池信息</li>
+</ul>
+<p><img src="/img/console/battery.png" alt="battery 示例" title="battery 示例"></p>
+<ul>
+<li>媒体能力</li>
+</ul>
+<p><img src="/img/console/media.png" alt="media 示例" title="media 示例"></p>
+<ul>
+<li>Cache storage keys</li>
+</ul>
+<blockquote>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage" target="_blank" rel="noopener">Cache storage keys</a> 一般用来对 <code>request</code> 和 <code>response</code> 进行缓存</p>
+</blockquote>
+<p><img src="/img/console/cache.png" alt="cache 示例" title="cache 示例"></p>
+<p>更多的例子不胜枚举。能够在 <code>console</code> 中轻松的获取 <code>promise</code> 包裹的值绝对是相当方便的。</p>
+<h2 id="logs加上时间戳"><a href="#logs加上时间戳" class="headerlink" title="logs加上时间戳"></a>logs加上时间戳</h2><p>如果你想要给你的应用中发生的事件加上一个确切的时间记录，开启 <code>timestamps</code>.你可以在设置(在调试工具中的 <code>⋮</code> 下拉中找到它，或者按下 <code>F1</code> )中来开启或者使用<code>Commands Menu</code><br><img src="/img/console/logstime.gif" alt="logstime 示例" title="logstime 示例"></p>
+<h2 id="监测执行时间"><a href="#监测执行时间" class="headerlink" title="监测执行时间"></a>监测执行时间</h2><p>相对于在所有事上展示一个时间戳，你可能对脚本中的特殊的点之间的时间跨度更加感兴趣<br>对于这样的情况，我们可以采用一对有效的 <code>console</code> 方法</p>
+<ul>
+<li><code>console.time()</code> — 开启一个计时器</li>
+<li><code>console.timeEnd()</code> — 结束计时并且将结果在 <code>console</code> 中打印出来</li>
+</ul>
+<p>如果你想一次记录多件事，往这些方法中传入不同的标签值。(例如: <code>console.time(&#39;loading&#39;)</code>, <code>console.timeEnd(&#39;loading&#39;)</code>)<br><img src="/img/console/timeend.gif" alt="timeend 示例" title="timeend 示例"></p>
+<h2 id="console-assert"><a href="#console-assert" class="headerlink" title="console.assert"></a>console.assert</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.assert(assertion, obj1 [, obj2, ..., objN])</span><br><span class="line"><span class="built_in">console</span>.assert(assertion, msg [, subst1, ..., substN])</span><br></pre></td></tr></table></figure>
+<p>当我们传入的第一个参数为假时，<code>console.assert</code>打印跟在这个参数后面的值。当你需要在特殊情况下打印一些信息的时候这很有用 - 现在你可以在不使用<code>if</code>表达式的情况下做到这件事情。另外，你还可以白白得到一个堆栈的跟踪信息 ；-）<br>请注意，如果你使用的 <code>NodeJS</code> 版本 <code>≤ 10.0</code> ,那可能会中断后面代码的执行，但是在<code>. 10</code>的版本中被修复了(当然，在浏览器中使用是完全安全的)<br><img src="/img/console/assert.gif" alt="assert 示例" title="assert 示例"></p>
+<h2 id="console-table"><a href="#console-table" class="headerlink" title="console.table"></a>console.table</h2><p>如果你有一个数组(或者是类数组的对象，或者就是一个对象)，你可以使用<code>console.table</code>方法将它以一个漂亮的表格的形式打印出来。它不仅仅会根据数组中包含的对象的所有属性，去计算出表中的列名，而且这些列都是可以缩放，甚至…可以排序！😳<br>当列太多的时候，使用第二个参数，传入你想要展示的列对应的名字<br><img src="/img/console/table.gif" alt="table 示例" title="table 示例"></p>
+<h2 id="console-dir"><a href="#console-dir" class="headerlink" title="console.dir"></a>console.dir</h2><p>最受欢迎<code>console.log</code>方法将数据以格式化的形式打印出来，在大多数的情况下这确实很有用。但是有时候那可能不是你想看到的 - 最典型的例子就是你想要打印一个<code>DOM</code>节点.<code>console.log</code>会将这个交互式的元素渲染成像是从<code>Elements</code>中剪切出来的一样.如果说你想要查看这个节点所关联到的真实的<code>js</code>对象呢？并且想要查看他的属性等等？<br>在那样的情况下，如果你需要更加直接的表现形式来展示你的数据，就可以使用<code>console.dir</code>。<br><img src="/img/console/dir.gif" alt="dir 示例" title="dir 示例"></p>
+<h2 id="console-log"><a href="#console-log" class="headerlink" title="console.log"></a>console.log</h2><p>你(在代码中)打印了一个对象，然后(在代码中)修改了它，然后再将他打印出来 - 然后在console中查看，你就会看到第一条打印的记录(在进行修改前的记录) 和第二条打印的记录的值是一样的！</p>
+<h1 id="通过’h’来隐藏"><a href="#通过’h’来隐藏" class="headerlink" title="通过’h’来隐藏"></a>通过’h’来隐藏</h1><p>你可以通过简单的按一下’h’来隐藏你在元素面板中选择的元素。再次按下’h’可以使它出现。这在某些的时候是很有用的，例如你想截图，但是你又不想里面包含一些敏感信息的情况。<br><img src="/img/console/h.gif" alt="h 示例" title="h 示例"></p>
+<h1 id="拖动-amp-放置元素-或者使用control-按钮"><a href="#拖动-amp-放置元素-或者使用control-按钮" class="headerlink" title="拖动 &amp; 放置元素 或者使用control!(按钮)"></a>拖动 &amp; 放置元素 或者使用control!(按钮)</h1><p>当你想要看看你页面的一部分在DOM树的不同部分是如何显示的时候，只需要拖动放置它(到指定的位置)，就像在你机器上任何其他地方一样 :-)<br><img src="/img/console/drag.gif" alt="drag 示例" title="drag 示例"><br>如果你只是想移动你当前选中的元素，在DOM结构中往上一点或者往下一点，而不是拖动和放置，你同样可以使用<code>[ctrl] + [⬆]</code> / <code>[ctrl] + [⬇]</code> (<code>[⌘] + [⬆]</code> /<code>[⌘] + [⬇]</code> on Mac).<br><img src="/img/console/ctrl.gif" alt="ctrl 示例" title="ctrl 示例"></p>
+<p>从某一点来看，我们可以拖动，放置，编辑，复制(当然，以及使用 <code>[ctrl]+[v]</code> 来粘贴), 所以当我们发现我们可以在元素面板里把我们的HTML结构搞得一团糟，这并不奇怪。在任意一个编辑器中都有一个标准：<br>使用<code>[ctrl] + [z]</code> (<code>[⌘] + [z]</code> on Mac)撤销我们的任何改动。<br>使用<code>[ctrl] + [shift] + [z]</code>重新编辑我们的任何修改。</p>
+<h1 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h1><ul>
+<li>在 <code>Chrome</code> 的调试打开的情况下 按下 <code>[Ctrl]+[Shift]+[P]</code> (or <code>[⌘]+[Shift]+[P]</code> on Mac)</li>
+<li>或者使用 <code>DevTools</code> 的 <code>dropdown</code> 按钮的这个选项:<br><img src="/img/console/command.jpg" alt="Command 示例" title="Command 示例"></li>
+</ul>
+<p>你可以看到命令的输入和一系列的可供你选择的命令，按照我在下图所选择的类型被分组排列。<br><img src="/img/console/actions.png" alt="Command 示例" title="Command 示例"></p>
+<h2 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h2><p>如果你想对一个特别的 <code>DOM</code> 节点进行截图，选中那个节点，打开 <code>Command</code> 菜单并且寻找节点截图的命令。<br>更有用的是什么呢，你同样可以用这种方式全屏截图 - 使用 <code>Capture full size screenshot</code>。请注意，我们说的是全屏，并不是嵌入页面的一部分。我记得这可是得使用浏览器插件才能做到的！<br><img src="/img/console/cut.gif" alt="截屏 示例" title="截屏 示例"></p>
+<h2 id="快速切换面板"><a href="#快速切换面板" class="headerlink" title="快速切换面板"></a>快速切换面板</h2><p><code>DevTools</code> 的部分使用双面板布局（例如：元素或者资源面板）经常将它们以适合阅读的方式展示出来，根据屏幕可用的部分，将它们横向或者纵向的排列。有时候这个布局却并不是你喜欢的。<br>（你是否重置过<code>DevTools</code>呢？将样式面板将其从html预览的底部移动到右边或者其他的周围位置呢？是的，这就是我所说的😉）<br>打开 <code>Commands</code> 菜单并且输入<code>layout</code>,你会看到 2 到3个可供选择的项(当前你已经激活的选项不会在这里显示)：</p>
+<ul>
+<li>使用横向面板布局</li>
+<li>使用纵向面板布局</li>
+<li>使用自动面板布局</li>
+</ul>
+<p>选择你需要的<br><img src="/img/console/layout.gif" alt="layout 示例" title="layout 示例"></p>
+<h2 id="快速切换主题"><a href="#快速切换主题" class="headerlink" title="快速切换主题"></a>快速切换主题</h2><p>你是否突然开始讨厌强光，并且不能忍受一直看着白光闪闪的屏幕呢？或者你一直都在黑暗的模式下工作，突然太阳出来了，照在你的 <code>DevTools</code> 上所以你什么都看不到？<br>在<code>Commands</code>菜单中寻找与 <code>theme</code> 相关的选项，以实现在明亮&amp;暗黑两种主题之间的切换。<br><img src="/img/console/theme.gif" alt="theme 示例" title="theme 示例"></p>
+<h1 id="Color-picker"><a href="#Color-picker" class="headerlink" title="Color picker"></a>Color picker</h1><p><img src="/img/console/colorpicker.gif" alt="colorpicker 示例" title="colorpicker 示例"></p>
+<h2 id="选择你正在用的颜色"><a href="#选择你正在用的颜色" class="headerlink" title="选择你正在用的颜色"></a>选择你正在用的颜色</h2><p>下面是颜色选择器的一部分，包括你可以自定义的调色板。你可以：</p>
+<ul>
+<li>切换到一个有色调变化的 <code>Material</code> 调色板</li>
+<li>自定义，可以添加和删除颜色</li>
+<li>从 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables" target="_blank" rel="noopener">CSS Variables</a> 中选择一个你当前页面使用的样式表中存在的颜色。</li>
+<li>或者所有你在页面的 <code>CSS</code> 中使用的颜色<br><img src="/img/console/currentcolor.png" alt="正在用的颜色 示例" title="正在用的颜色 示例"></li>
+</ul>
+<h2 id="直观的选择颜色"><a href="#直观的选择颜色" class="headerlink" title="直观的选择颜色"></a>直观的选择颜色</h2><p>当为了文本打开调色选择器(这个 color css 属性 但布施 background-color) 你会看到<strong>“Contrast ratio(对比度)”</strong>部分。它展示了文本和它（开发者工具）认为这段文本的背景颜色的对比度。如果这个数字很高，你的文本相对于背景来说有合适的可见性，如果对比度接近 1 ,这段文本几乎不能从背景中区分出来。</p>
+<ul>
+<li><p>在数字边上的“🚫” 意味着不好（译者注:对比度太低）</p>
+</li>
+<li><p>一个“✅” 意味着这个颜色遵从<a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/conformance.html" target="_blank" rel="noopener">Web Content Accessibility Guidelines (WCAG) 2.0</a>的 AA 声明，这意味着对比度至少为 3,</p>
+</li>
+<li><p>你同样可以拥有“✅ ✅” ，那意味着满足了 AAA 声明。</p>
+</li>
+</ul>
+<p><img src="/img/console/customcolor.gif" alt="customcolor 示例" title="customcolor 示例"></p>
+<p>你可以通过点击那个记号来阅读更多关于 <a href="https://developers.google.com/web/fundamentals/accessibility/accessible-styles#color_and_contrast" target="_blank" rel="noopener">accessibility rules</a> 中颜色的说明。<br>如果你继续探索 <code>对比度</code> 的部分，你会看到额外的信息，并且可能选择一个不同的颜色作为背景颜色来进行对比，当然 <code>color spectrum(色谱)</code> 部分会显示一个对比的边界：如果你的背景颜色比这条线上面的颜色更深，兼容 <code>AA</code>，如果背景颜色比这条线上面的更亮，你需要在这条线的下面选择一个颜色。</p>
+<h1 id="自定义格式化console"><a href="#自定义格式化console" class="headerlink" title="自定义格式化console"></a>自定义格式化console</h1><p><code>DevTools</code> 控制台格式化对象的默认方式对大多数情况都很有用，但有时会不满足需求。这里我们就需要<code>自定义格式化程序</code> 来自定义我们输出的对象要显示的格式，在编写之前，我们需要在<code>DevTools</code>的<code>设置</code>中打开相应的设置（在<code>DevTools</code>的<code>⋮</code>下拉列表或按<code>F1</code>键）：<br><img src="/img/console/format.png" alt="format 示例" title="format 示例"></p>
+<p>那么我们如何使用<code>格式化程序</code>呢？它是一个拥有三个方法的对象</p>
+<ul>
+<li><code>header</code> – 处理在控制台中显示日志的主要部分</li>
+<li><code>hasBody</code> – 如果要展开对象的▶箭头，则返回<code>true</code></li>
+<li><code>body</code> – 定义将在展开的部分中显示的内容</li>
+</ul>
+<p>让我们来看一个基本的自定义格式化程序：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.devtoolsFormatters = [&#123;</span><br><span class="line">  header: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">'div'</span>, &#123;&#125;, <span class="string">`<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">7</span>)&#125;</span>`</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  hasBody: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>这个<code>header</code>函数返回的是一个<a href="http://www.jsonml.org/" target="_blank" rel="noopener">JsonML</a>数组，它包含：</p>
+<ol>
+<li><code>html</code>标签名称</li>
+<li><code>style</code>属性对象</li>
+<li>内容（文本值或其他元素）</li>
+</ol>
+<blockquote>
+<p>如果这看起来很熟悉，可能是因为你熟悉<code>React</code>开发</p>
+</blockquote>
+<p>这个格式化程序示例只是为对象的每个嵌套级别打印7个空格的缩进，因此输出现在看起来像这样：<br><img src="/img/console/format1.gif" alt="format1 示例" title="format1 示例"></p>
+<p>来一个实际的例子，我只想格式化特定的对象，并加一些样式修饰<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.devtoolsFormatters = [&#123;</span><br><span class="line">  header: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!obj.__clown) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">delete</span> obj.__clown</span><br><span class="line">    <span class="keyword">const</span> style = <span class="string">`</span></span><br><span class="line"><span class="string">      color: red;</span></span><br><span class="line"><span class="string">      border: dotted 2px gray;</span></span><br><span class="line"><span class="string">      border-radius: 4px;</span></span><br><span class="line"><span class="string">      padding: 5px;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">    <span class="keyword">const</span> content = <span class="string">`😁 <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">2</span>)&#125;</span>`</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="string">'div'</span>, &#123; style &#125;, content]</span><br><span class="line">    &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  hasBody: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.clown = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(&#123;</span><br><span class="line">    ...obj,</span><br><span class="line">    __clown: <span class="literal">true</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 普通打印</span></span><br><span class="line"><span class="built_in">console</span>.log(&#123; <span class="attr">message</span>: <span class="string">'hello!'</span> &#125;)</span><br><span class="line"><span class="comment">// 装饰打印</span></span><br><span class="line"><span class="built_in">console</span>.clown(&#123; <span class="attr">message</span>: <span class="string">'hello!'</span> &#125;)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/console/clown.png" alt="clown 示例" title="clown 示例"></p>
+<h1 id="Shadow编辑"><a href="#Shadow编辑" class="headerlink" title="Shadow编辑"></a>Shadow编辑</h1><p>这只是一个小小部件，类似于颜色选择器，但更简单。您可以通过单击“样式”面板中<code>box-shadow</code>或<code>text-shadow</code>属性附近的方形阴影符号来打开它：<br><img src="/img/console/shadow.gif" alt="shadow 示例" title="shadow 示例"></p>
+<h1 id="Timing-function编辑器"><a href="#Timing-function编辑器" class="headerlink" title="Timing function编辑器"></a>Timing function编辑器</h1><p>也称为<code>Cubic bezier</code>编辑器。贝塞尔曲线用于定义动画持续时间内css动画速度的变化情况。我们将其用于CSS属性<code>transition-timing-function</code>或<code>animation-timing-function</code>的值。<br>与颜色选择器和阴影编辑器一样，只需单击上述属性旁边的曲线符号（或<code>transition</code>, <code>animation</code>：如果未在动画里使用，则不会出现符号）<br><img src="/img/console/timing.gif" alt="Timing 示例" title="Timing 示例"></p>
+<h1 id="插入样式按钮"><a href="#插入样式按钮" class="headerlink" title="插入样式按钮"></a>插入样式按钮</h1><p>当您将鼠标光标悬停在样式区域的末尾附近时，您将看到一些可以快速添加<code>Color</code>和<code>Shadow</code>编辑器的CSS属性的按钮：</p>
+<ul>
+<li>text-shadow</li>
+<li>box-shadow</li>
+<li>color</li>
+<li>background-color</li>
+</ul>
+<p><img src="/img/console/insert.gif" alt="insert 示例" title="insert 示例"></p>
+<h1 id="断点调试"><a href="#断点调试" class="headerlink" title="断点调试"></a>断点调试</h1><p>有时候，当你设置断点时，它们会被循环太多次：想象一个循环超过200个元素，你只对第110次迭代中的那个元素感兴趣，或者只在某些其他特殊情况（例如值的组合）出现时感兴趣。<br>在这种情况下，您可以设置条件断点</p>
+<ul>
+<li>右键单击行号，然后选择“添加条件断点…”选项</li>
+<li>或右键单击已设置的断点并选择“编辑断点…”</li>
+<li>然后输入任何计算结果为<code>truthy</code>或<code>falsy</code>值的表达式（它不需要是true / false）</li>
+</ul>
+<p>在该表达式中，您可以访问代码中此处可用的所有内容，即此行的范围。<br>现在断点将仅在满足条件时暂停代码。<br><img src="/img/console/pauseif.gif" alt="pauseif 示例" title="pauseif 示例"></p>
+<p><strong>高级进阶</strong><br>由于条件断点，您可以开始使用一种灵巧的技术</p>
+<ul>
+<li>每次应用程序到达该行时，提供的条件必须检查 - 即运行</li>
+<li>如果该条件返回一个假的（例如未定义的）值，它将不会暂停</li>
+</ul>
+<p>鉴于这些特性，我们可以插入 <code>console.</code>的所有方法</p>
+<p>因此，不用在源代码的多个位置添加<code>console.log / console.table / console.time</code>等，而只需使用条件断点在<code>Sources</code>面板中“附加”它们。它们不会停止，但它们会运行，当你不再需要它们时，你在断点列表，你可以通过两次点击鼠标将它们全部删除。他们会像一堆忍者一样消失！<br><img src="/img/console/debuggerconsole.gif" alt="debuggerconsole 示例" title="debuggerconsole 示例"></p>
+<p>参考：</p>
+<ul>
+<li><a href="https://juejin.im/post/5c09a80151882521c81168a2" target="_blank" rel="noopener">你不知道的Chrome调试工具技巧</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/debugger/" rel="tag"># debugger</a>
+          
+            <a href="/tags/console/" rel="tag"># console</a>
+          
+            <a href="/tags/chrome/" rel="tag"># chrome</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/27/about-javascript-data-structures-marker/" rel="next" title="学习JavaScript数据结构与算法">
+                <i class="fa fa-chevron-left"></i> 学习JavaScript数据结构与算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTExMS83NjYw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/user/3.jpg"
+                alt="Freeser" />
+            
+              <p class="site-author-name" itemprop="name">Freeser</p>
+              <p class="site-description motion-element" itemprop="description">个人博客，写一些工作常用的小工具，备份一些代码...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/freeser" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:freeser@126.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/108392057455602995990" target="_blank" title="Google">
+                    
+                      <i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/liu_freeser" target="_blank" title="Twitter">
+                    
+                      <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/freeser" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.zhihu.com/people/freeser" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-yelp"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快捷使用"><span class="nav-number">1.</span> <span class="nav-text">$快捷使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0"><span class="nav-number">1.1.</span> <span class="nav-text">$0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和"><span class="nav-number">1.2.</span> <span class="nav-text">$ 和 $$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.3.</span> <span class="nav-text">$_</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i"><span class="nav-number">1.4.</span> <span class="nav-text">$i</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#copy-…"><span class="nav-number">2.</span> <span class="nav-text">copy(…)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Store-as-global"><span class="nav-number">3.</span> <span class="nav-text">Store as global</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保存-Stack-trace-堆栈跟踪"><span class="nav-number">4.</span> <span class="nav-text">保存(Stack trace)堆栈跟踪</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Copy-HTML-最快的方式"><span class="nav-number">5.</span> <span class="nav-text">Copy HTML (最快的方式)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#console"><span class="nav-number">6.</span> <span class="nav-text">console</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-console"><span class="nav-number">6.1.</span> <span class="nav-text">异步 console</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#logs加上时间戳"><span class="nav-number">6.2.</span> <span class="nav-text">logs加上时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监测执行时间"><span class="nav-number">6.3.</span> <span class="nav-text">监测执行时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console-assert"><span class="nav-number">6.4.</span> <span class="nav-text">console.assert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console-table"><span class="nav-number">6.5.</span> <span class="nav-text">console.table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console-dir"><span class="nav-number">6.6.</span> <span class="nav-text">console.dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console-log"><span class="nav-number">6.7.</span> <span class="nav-text">console.log</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过’h’来隐藏"><span class="nav-number">7.</span> <span class="nav-text">通过’h’来隐藏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拖动-amp-放置元素-或者使用control-按钮"><span class="nav-number">8.</span> <span class="nav-text">拖动 &amp; 放置元素 或者使用control!(按钮)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Command"><span class="nav-number">9.</span> <span class="nav-text">Command</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#截屏"><span class="nav-number">9.1.</span> <span class="nav-text">截屏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速切换面板"><span class="nav-number">9.2.</span> <span class="nav-text">快速切换面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速切换主题"><span class="nav-number">9.3.</span> <span class="nav-text">快速切换主题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Color-picker"><span class="nav-number">10.</span> <span class="nav-text">Color picker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选择你正在用的颜色"><span class="nav-number">10.1.</span> <span class="nav-text">选择你正在用的颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直观的选择颜色"><span class="nav-number">10.2.</span> <span class="nav-text">直观的选择颜色</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义格式化console"><span class="nav-number">11.</span> <span class="nav-text">自定义格式化console</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shadow编辑"><span class="nav-number">12.</span> <span class="nav-text">Shadow编辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timing-function编辑器"><span class="nav-number">13.</span> <span class="nav-text">Timing function编辑器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入样式按钮"><span class="nav-number">14.</span> <span class="nav-text">插入样式按钮</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#断点调试"><span class="nav-number">15.</span> <span class="nav-text">断点调试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Freeser</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
