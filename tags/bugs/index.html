@@ -75,17 +75,16 @@
 
 
 
-<meta name="description" content="html {         color: #666;         -ms-text-size-adjust: 100%;         -webkit-text-size-adjust: 100%;         font-size: 100%;         font-family: &quot;Microsoft YaHei&quot;, &quot;SimHei&quot;;     }      * {">
+<meta name="description" content="个人博客，写一些工作常用的小工具，备份一些代码...">
 <meta property="og:type" content="website">
 <meta property="og:title" content="迷途">
-<meta property="og:url" content="http://liufeize.com/code/date-time-vue.html">
+<meta property="og:url" content="http://liufeize.com/tags/bugs/index.html">
 <meta property="og:site_name" content="迷途">
-<meta property="og:description" content="html {         color: #666;         -ms-text-size-adjust: 100%;         -webkit-text-size-adjust: 100%;         font-size: 100%;         font-family: &quot;Microsoft YaHei&quot;, &quot;SimHei&quot;;     }      * {">
+<meta property="og:description" content="个人博客，写一些工作常用的小工具，备份一些代码...">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-15T01:47:48.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迷途">
-<meta name="twitter:description" content="html {         color: #666;         -ms-text-size-adjust: 100%;         -webkit-text-size-adjust: 100%;         font-size: 100%;         font-family: &quot;Microsoft YaHei&quot;, &quot;SimHei&quot;;     }      * {">
+<meta name="twitter:description" content="个人博客，写一些工作常用的小工具，备份一些代码...">
 
 
 
@@ -115,13 +114,13 @@
 
 
 
-  <link rel="canonical" href="http://liufeize.com/code/date-time-vue.html"/>
+  <link rel="canonical" href="http://liufeize.com/tags/bugs/"/>
 
 
 
 
 
-  <title> | 迷途</title>
+  <title>标签: bugs | 迷途</title>
   
 
 
@@ -140,7 +139,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,214 +243,54 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-    
-    
-    <div class="post-block page">
-      <header class="post-header">
+  
+  
+  
+  <div class="post-block tag">
 
-	<h1 class="post-title" itemprop="name headline"></h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-        
-        
-          <style>
-    html {
-        color: #666;
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-        font-size: 100%;
-        font-family: "Microsoft YaHei", "SimHei";
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
-    .flex {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .wrap {
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -webkit-flex-wrap: wrap;
-    }
-
-    .jcenter {
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-    }
-
-    .acenter {
-        -webkit-align-content: center;
-        -ms-flex-line-pack: center;
-        align-content: center;
-    }
-
-    .tcenter {
-        text-align: center;
-    }
-
-    .h100 {
-        height: 100%!important;
-    }
-
-    .datetimes .thead {
-        line-height: 36px;
-        height: 36px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .datetimes .thead button {
-        border: 0;
-        background: transparent;
-        padding: 0 1em;
-    }
-
-    .datetimes .thead .currdate {
-        padding: 0 1em;
-    }
-
-    .datetimes .columns7 {
-        margin: 0 1em;
-        line-height: 30px;
-    }
-
-    .datetimes .columns7 .colum {
-        position: relative;
-        font-size: 12px;
-        box-sizing: border-box;
-        text-align: center;
-        margin: 5px 3px;
-        width: -webkit-calc(14.28% - 6px);
-        width: calc(14.28% - 6px);
-        border-radius: 3px;
-    }
-    .datetimes .columns7 .day{
-        color: #333;
-        border: 1px solid #efefef;
-    }
-    .datetimes .columns7 .day.selected{
-        color: blue; border-color: #3997D6;
-    }
-    .datetimes .header {
-        color: #3997D6;
-    }
-</style>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<div id="vue_tab_attend" class="h100 scroll">
-    <dl class="datetimes">
-        <dt class="thead flex acenter jcenter">
-            <button @click="setYear(-1)">上年</button>
-            <button @click="setMonth(-1)">上月</button>
-            <span class="currdate">-</span>
-            <button @click="setMonth(1)">下月</button>
-            <button @click="setYear(1)">下年</button>
-        </dt>
-        <dd class="flex header columns7">
-            <span class="colum" v-for="i in 7" :key="i"></span>
-        </dd>
-        <dd class="flex tbody wrap columns7">
-            <span class="colum" v-for="(d, idx) in days" :key="idx" @click="day = d.d || day" :class="{'day': d.d, 'selected': d.d == day}"></span>
-        </dd>
-    </dl>
-</div>
-<script>
-    (function () {
-        var today = new Date();
-        new Vue({
-            el: '#vue_tab_attend',
-            data: {
-                options: {},
-                year: today.getFullYear(),
-                month: today.getMonth() + 1,
-                day: today.getDate(),
-                days: [],
-                weeks: [
-                    [0, '日'],
-                    [1, '一'],
-                    [2, '二'],
-                    [3, '三'],
-                    [4, '四'],
-                    [5, '五'],
-                    [6, '六']
-                ]
-            },
-            watch: {
-                month: function (v, o) {
-                    this.creatMonth()
-                },
-                year: function() {
-                    this.creatMonth()
-                }
-            },
-            created: function () {
-                this.creatMonth();
-            },
-            methods: {
-                setMonth: function (step) {
-                    var val = this.month + step;
-                    if (val < 1) {
-                        this.month = 12;
-                        this.year -= 1;
-                    } else if (val > 12) {
-                        this.month = 1;
-                        this.year += 1;
-                    } else {
-                        this.month = val;
-                    }
-                },
-                setYear: function (step) {
-                    this.year += step;
-                },
-                creatMonth: function () {
-                    var self = this;
-                    var first = new Date(this.year, this.month - 1, 1);
-                    var last = new Date(this.year, this.month, 0);
-                    var bweek = first.getDay();
-                    var fweek = this.weeks[0][0];
-                    var before = fweek ? (bweek || 7) - 1 : bweek;
-                    var total = before + last.getDate();
-                    var after = 7 - (total % 7 || 7);
-                    var days = Array(total + after).join(',').split(',');
-                    this.days = days.map(function (item, idx) {
-                        return (idx >= before && idx < total) ? {
-                            y: self.year,
-                            m: self.month,
-                            d: idx - before + 1,
-                            on: false
-                        } : {};
-                    });
-                }
-            }
-        })
-    })();
-</script>
-        
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>bugs<small>标签</small>
+        </h1>
       </div>
+
       
-      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2018/12/25/web-front-bugs/" itemprop="url">
+              
+                <span itemprop="name">前端遇到的那些坑</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-12-25T20:28:28+08:00"
+              content="2018-12-25" >
+          12-25
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
       
     </div>
-    
-    
-    
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -459,15 +298,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTExMS83NjYw"></div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -733,10 +563,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
 
   
 
@@ -765,17 +591,6 @@
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 
