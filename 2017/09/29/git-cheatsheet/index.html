@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="Git的官方网站：http://git-scm.comPro Git book: https://git-scm.com/book/zh/v2">
+<meta name="description" content="Git的官方网站：http://git-scm.comPro Git book: https://git-scm.com/book/zh/v2实践：https://learngitbranching.js.org/">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git-cheatsheet">
 <meta property="og:url" content="http://liufeize.com/2017/09/29/git-cheatsheet/index.html">
 <meta property="og:site_name" content="迷途">
-<meta property="og:description" content="Git的官方网站：http://git-scm.comPro Git book: https://git-scm.com/book/zh/v2">
+<meta property="og:description" content="Git的官方网站：http://git-scm.comPro Git book: https://git-scm.com/book/zh/v2实践：https://learngitbranching.js.org/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-15T01:47:48.163Z">
+<meta property="og:updated_time" content="2019-01-16T13:03:22.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git-cheatsheet">
-<meta name="twitter:description" content="Git的官方网站：http://git-scm.comPro Git book: https://git-scm.com/book/zh/v2">
+<meta name="twitter:description" content="Git的官方网站：http://git-scm.comPro Git book: https://git-scm.com/book/zh/v2实践：https://learngitbranching.js.org/">
 
 
 
@@ -348,7 +348,7 @@
       
 
       
-        <p>Git的官方网站：<a href="http://git-scm.com" target="_blank" rel="noopener">http://git-scm.com</a><br>Pro Git book: <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2</a></p>
+        <p>Git的官方网站：<a href="http://git-scm.com" target="_blank" rel="noopener">http://git-scm.com</a><br>Pro Git book: <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2</a><br>实践：<a href="https://learngitbranching.js.org/" target="_blank" rel="noopener">https://learngitbranching.js.org/</a></p>
 <a id="more"></a>
 <h2 id="本地git与在线库关联步骤"><a href="#本地git与在线库关联步骤" class="headerlink" title="本地git与在线库关联步骤"></a>本地git与在线库关联步骤</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -<span class="keyword">m</span> “init”                       <span class="comment">#可将2,、3合并为 git commit -am 'xxx'（不太适用，del掉）</span></span><br><span class="line">git remote add origin 你的github仓库地址 </span><br><span class="line">git <span class="keyword">push</span> --set-upstream origin master      <span class="comment">#pull,push时将本地分支与远程分支关联</span></span><br><span class="line">git <span class="keyword">push</span> -u origin master                  <span class="comment">#第一次推送master分支的所有内容；此后使用命令git push origin master推送最新修改；</span></span><br><span class="line">git branch --set-upstream dev origin/dev   <span class="comment">#将本地分支与远程分支关联</span></span><br><span class="line"><span class="comment">#想维持树的整洁，方法就是：在git push之前，先git fetch，再git rebase</span></span><br><span class="line">git fetch origin master</span><br><span class="line">git rebase origin/master</span><br><span class="line">git <span class="keyword">push</span></span><br></pre></td></tr></table></figure>
 <h2 id="克隆并创建新分支"><a href="#克隆并创建新分支" class="headerlink" title="克隆并创建新分支"></a>克隆并创建新分支</h2><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone 你的github仓库地址</span><br><span class="line">git remote <span class="keyword">rename</span> &lt;old&gt; &lt;new&gt;  <span class="comment">#重命名</span></span><br><span class="line">git remote remove &lt;name&gt;       <span class="comment">#删除已映射的远程仓库</span></span><br><span class="line">git checkout -b dev origin/dev <span class="comment">#作用是checkout远程的dev分支，在本地起名为dev分支，并切换到本地的dev分支</span></span><br><span class="line">git branch dev origin/dev <span class="comment">#分解步骤如下</span></span><br><span class="line">git checkout dev <span class="comment">#分解步骤如下</span></span><br></pre></td></tr></table></figure>
@@ -550,7 +550,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +572,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -665,7 +665,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
