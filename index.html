@@ -258,6 +258,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liufeize.com/2019/04/30/nuxt-js-build-on-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Freeser">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/user/3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="迷途">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/30/nuxt-js-build-on-server/" itemprop="url">nuxt项目在服务器上布署</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T10:44:06+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/收集整理/" itemprop="url" rel="index">
+                    <span itemprop="name">收集整理</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/收集整理/文档留存/" itemprop="url" rel="index">
+                    <span itemprop="name">文档留存</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a> 
+<h1 id="nuxt项目在服务器上布署"><a href="#nuxt项目在服务器上布署" class="headerlink" title="nuxt项目在服务器上布署"></a>nuxt项目在服务器上布署</h1><h2 id="布署步骤"><a href="#布署步骤" class="headerlink" title="布署步骤"></a>布署步骤</h2><ol>
+<li>第一步，打包：执行<code>npm run build</code>，<code>nuxt</code>会自动打包</li>
+<li>第二步，选择要部署的文件：<ul>
+<li>方法一：拷贝如下目录到服务器要部署的目录：<code>.nuxt</code>、<code>package.json</code>、<code>nuxt.config.js</code> 文件(如果你部署一些<code>proxy</code>，则需要上传这个文件，个人建议把它传上去)</li>
+<li>方法二：目录下<code>Git</code>克隆下你的项目，然后执行<code>npm run build</code></li>
+</ul>
+</li>
+<li>第三步：后台启动实例：<code>npm run start &amp;</code></li>
+</ol>
+<h2 id="查看启动实例"><a href="#查看启动实例" class="headerlink" title="查看启动实例"></a>查看启动实例</h2><p><code>ps -ef|grep nuxt</code></p>
+<h2 id="杀死指定实例26736，是通过查看启动实例找到的id"><a href="#杀死指定实例26736，是通过查看启动实例找到的id" class="headerlink" title="杀死指定实例26736，是通过查看启动实例找到的id"></a>杀死指定实例26736，是通过查看启动实例找到的id</h2><p><code>kill -9 26736</code></p>
+<h2 id="后台启动实例"><a href="#后台启动实例" class="headerlink" title="后台启动实例"></a>后台启动实例</h2><p><code>npm run start &amp;</code></p>
+<h2 id="进程守方法二："><a href="#进程守方法二：" class="headerlink" title="进程守方法二："></a>进程守方法二：</h2><p>使用<code>pm2</code>启动你的<code>nuxt.js</code>。如：<code>pm2 start npm --name &quot;demo&quot; -- run start</code></p>
+<h1 id="pm2常用命令"><a href="#pm2常用命令" class="headerlink" title="pm2常用命令"></a>pm2常用命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ npm install pm2 -g      <span class="comment"># 安装</span></span><br><span class="line">$ pm2 start app.js        <span class="comment"># 启动</span></span><br><span class="line">$ pm2 list                <span class="comment"># 查看启动列表</span></span><br><span class="line"></span><br><span class="line">$ pm2 stop     &lt;app_name|id|<span class="string">'all'</span>|json_conf&gt;    <span class="comment"># 停止某个进程</span></span><br><span class="line">$ pm2 restart  &lt;app_name|id|<span class="string">'all'</span>|json_conf&gt;    <span class="comment"># 重新启动某个进程</span></span><br><span class="line">$ pm2 delete   &lt;app_name|id|<span class="string">'all'</span>|json_conf&gt;    <span class="comment"># 删除某个进程</span></span><br><span class="line"></span><br><span class="line">$ pm2 monit               <span class="comment"># 监控日志</span></span><br><span class="line">$ pm2 reload all          <span class="comment"># 重新加载所有</span></span><br><span class="line"></span><br><span class="line">$ pm2 logs</span><br><span class="line">$ pm2 logs APP-NAME       <span class="comment"># Display APP-NAME logs </span></span><br><span class="line">$ pm2 logs --json         <span class="comment"># JSON output </span></span><br><span class="line">$ pm2 logs --format       <span class="comment"># Formated output </span></span><br><span class="line"></span><br><span class="line">$ pm2 flush               <span class="comment"># Flush all logs </span></span><br><span class="line">$ pm2 reloadLogs          <span class="comment"># Reload all logs</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://liufeize.com/2019/04/13/npm-common-use/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1625,168 +1792,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://liufeize.com/2017/11/16/javascript-tools/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Freeser">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/img/user/3.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="迷途">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/16/javascript-tools/" itemprop="url">javascript常用小方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T11:59:37+08:00">
-                2017-11-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/收集整理/" itemprop="url" rel="index">
-                    <span itemprop="name">收集整理</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/收集整理/摘抄备份/" itemprop="url" rel="index">
-                    <span itemprop="name">摘抄备份</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>收集整理工作中重复用到的<code>日期格式化</code>、<code>url参数转对象</code>、<code>浏览器类型判断</code>、<code>节流函数</code>等一类函数，这些工具类函数</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/16/javascript-tools/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1836,7 +1846,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1847,7 +1857,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1858,7 +1868,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
